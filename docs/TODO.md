@@ -28,7 +28,7 @@ Priority: P0 (must) · P1 (should) · P2 (nice).
 | 0.6b | Dedicated PRD: `PRD_research_questions.md` | P0 | Architect | ☑ | 8 EX04 §4 questions tracked w/ evidence source + surface. |
 | 0.7 | Get all docs approved before coding | P0 | Lead | ☑ | Sign-off recorded in [`DOCS_SIGNOFF.md`](DOCS_SIGNOFF.md) (v1.00 baseline, 2026-06-16). |
 | 0.8 | `pyproject.toml` (ruff/mypy/coverage/dev deps), `uv.lock`, `.python-version` | P0 | DevOps | ☑ | `uv sync` works; lockfile committed. Runtime deps (Grphify/agents) added per-phase. |
-| 0.9 | `.gitignore`, `.env-example`, `config/*.json` (v1.00) | P0 | DevOps | ◐ | `.gitignore` ✅; `.env-example` + `config/*.json` pending. |
+| 0.9 | `.gitignore`, `.env-example`, `config/*.json` (v1.00) | P0 | DevOps | ☑ | `.gitignore` ✅; `.env-example` ✅; `config/{setup,rate_limits,logging_config}.json` v1.00 ✅. |
 | 0.10 | Install/verify Grphify + Obsidian locally | P0 | DevOps | ☑ | Tool identified = `graphifyy` (CLI `graphify`); setup notes [`GRAPHIFY_SETUP.md`](GRAPHIFY_SETUP.md) + schema fixture committed. Live `graphify extract` on the chosen repo tracked under 1.6. |
 
 ## Phase 1 — Graph Pipeline  *(Milestone M1)*
