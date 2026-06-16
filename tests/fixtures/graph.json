@@ -1,0 +1,34 @@
+{
+  "version": "1.00",
+  "_comment": "Hand-authored fixture matching PLAN.md §3.1, pending a real `graphify extract`. Exercises PRD_graph_analysis §7: a God Node hub (mod.core), a cycle (mod.a→mod.b→mod.c→mod.a), an oversized module (mod.big), and an articulation point (mod.api gates mod.cli). `centrality` is intentionally omitted so the loader computes it (defensive parsing).",
+  "nodes": [
+    { "id": "mod.core", "type": "module", "loc": 90 },
+    { "id": "mod.api", "type": "module", "loc": 70 },
+    { "id": "mod.cli", "type": "module", "loc": 40 },
+    { "id": "mod.db", "type": "module", "loc": 120 },
+    { "id": "mod.util", "type": "module", "loc": 30 },
+    { "id": "mod.big", "type": "module", "loc": 420 },
+    { "id": "mod.a", "type": "module", "loc": 50 },
+    { "id": "mod.b", "type": "module", "loc": 55 },
+    { "id": "mod.c", "type": "module", "loc": 60 },
+    { "id": "class.Base", "type": "class", "loc": 25 },
+    { "id": "class.Service", "type": "class", "loc": 80 },
+    { "id": "func.helper", "type": "function", "loc": 12 }
+  ],
+  "edges": [
+    { "src": "mod.api", "dst": "mod.core", "kind": "import" },
+    { "src": "mod.db", "dst": "mod.core", "kind": "import" },
+    { "src": "mod.util", "dst": "mod.core", "kind": "import" },
+    { "src": "mod.big", "dst": "mod.core", "kind": "import" },
+    { "src": "mod.a", "dst": "mod.core", "kind": "import" },
+    { "src": "class.Service", "dst": "mod.core", "kind": "call" },
+    { "src": "mod.cli", "dst": "mod.api", "kind": "import" },
+    { "src": "mod.api", "dst": "mod.db", "kind": "import" },
+    { "src": "mod.big", "dst": "mod.util", "kind": "import" },
+    { "src": "mod.a", "dst": "mod.b", "kind": "import" },
+    { "src": "mod.b", "dst": "mod.c", "kind": "import" },
+    { "src": "mod.c", "dst": "mod.a", "kind": "import" },
+    { "src": "class.Service", "dst": "class.Base", "kind": "inherit" },
+    { "src": "class.Service", "dst": "func.helper", "kind": "call" }
+  ]
+}
