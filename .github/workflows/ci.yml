@@ -29,6 +29,9 @@ jobs:
         uses: astral-sh/setup-uv@v5
         with:
           python-version: "3.12"
+          # Off until the scaffold (TODO 0.8) lands uv.lock: with no deps to
+          # cache, the post-job cache save errors on a docs-only tree.
+          enable-cache: false
 
       # Probe for the Python project so the gates below skip on a docs-only
       # tree instead of failing. Auto-activates when TODO 0.8 lands pyproject.
