@@ -60,7 +60,7 @@ Priority: P0 (must) · P1 (should) · P2 (nice).
 | 3.2 | Agent roles (Explorer/Analyst/Architect/Refactor/Reporter) | P0 | Dev | ☑ | `agents/roles.py`: abstract `Agent` base (prompt + gatekept call + parse) + 5 single-responsibility subclasses + `build_crew`; 100%. |
 | 3.3 | `AgentCrew` orchestration (LangGraph) | P0 | Dev | ☑ | `agents/crew.py`: real LangGraph `StateGraph` explore→analyse→recommend→report; smells detected up front; runs to completion; 100%. |
 | 3.4 | `RecommendationReport` generation | P0 | Dev | ☑ | `services/recommendation.py`: `build_report` → ranked, evidence-backed report w/ `to_json`/`to_markdown`; deterministic; 100%. |
-| 3.5 | Agents consume graph artifacts (not raw code) | P0 | Dev | ☐ | Verified: no whole-file dumps in prompts. |
+| 3.5 | Agents consume graph artifacts (not raw code) | P0 | Dev | ☑ | `agents/guards.py`: raw-source detector enforced in `Agent.run` (raises before any model call); crew prompts verified graph-only; 100%. |
 
 ## Phase 4 — Refactor Loop  *(Milestone M4)*
 
