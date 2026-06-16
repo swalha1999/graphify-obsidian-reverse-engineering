@@ -9,7 +9,7 @@ These are the things we lost points on before, plus what the EX04 brief emphasis
 Treat them as a standing checklist for the whole project.
 
 ## Planning & documentation
-- [ ] Ship the **PRD up front** (see `docs/init_prd.md`): problem, goals, design — written *before* the code so a new team member understands the vision without asking us.
+- [ ] Ship the **PRD up front** (see [`docs/PRD.md`](PRD.md), with the source brief in [`docs/assignment_brief.md`](assignment_brief.md)): problem, goals, design — written *before* the code so a new team member understands the vision without asking us.
 - [ ] Keep docs current as the design evolves; document the *why* behind decisions, not just the *what*. The Obsidian vault must reflect the latest understanding (before → after).
 - [ ] README must let any developer install and run the project with **zero prior knowledge** — clear run instructions are an explicit EX04 requirement.
 
