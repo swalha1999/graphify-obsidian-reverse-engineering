@@ -22,7 +22,7 @@ Priority: P0 (must) · P1 (should) · P2 (nice).
 | 0.1 | Write `docs/PRD.md` | P0 | Architect | ☑ | PRD covers goals, KPIs, FR/NFR, scope. |
 | 0.2 | Write `docs/PLAN.md` | P0 | Architect | ☑ | C4 + workflow + ADRs + schemas present. |
 | 0.3 | Write `docs/TODO.md` | P0 | Architect | ☑ | This board. |
-| 0.4 | Dedicated PRD: `PRD_graph_analysis.md` | P0 | Architect | ☐ | Metrics + smell rules specified w/ I/O. |
+| 0.4 | Dedicated PRD: `PRD_graph_analysis.md` | P0 | Architect | ☑ | Metrics + smell rules specified w/ I/O. |
 | 0.5 | Dedicated PRD: `PRD_agent_workflow.md` | P0 | Architect | ☐ | Roles, loop, stop criterion specified. |
 | 0.6 | Dedicated PRD: `PRD_token_efficiency.md` | P0 | Architect | ☐ | Baseline vs guided method specified. |
 | 0.6b | Dedicated PRD: `PRD_research_questions.md` | P0 | Architect | ☑ | 8 EX04 §4 questions tracked w/ evidence source + surface. |
