@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# uv / virtualenv
+.venv/
+
+# Secrets (PRD NFR-3: keys via env only, never committed)
+.env
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
