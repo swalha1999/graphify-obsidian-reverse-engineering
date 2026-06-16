@@ -66,7 +66,7 @@ Priority: P0 (must) · P1 (should) · P2 (nice).
 
 | # | Task | Pri | Owner | Status | Definition of Done |
 |---|---|---|---|---|---|
-| 4.1 | `RefactorEngine` — apply a recommendation | P1 | Dev | ☐ | Applies ≥1 refactor (e.g. split module). |
+| 4.1 | `RefactorEngine` — apply a recommendation | P1 | Dev | ☑ | `services/refactor.py`: apply `FileEdit`s (modify/create, incl. split-module) with snapshot + one-shot revert; 100%. |
 | 4.2 | Re-run Grphify + unit tests each iteration | P0 | Dev | ☐ | Tests run automatically post-change. |
 | 4.3 | Green-test + improvement gate w/ auto-revert | P0 | Dev | ☐ | Bad change reverted (ADR-004). |
 | 4.4 | Stop criterion (max iters / no-improve / budget) | P0 | Dev | ☐ | Loop terminates deterministically; config-driven. |
