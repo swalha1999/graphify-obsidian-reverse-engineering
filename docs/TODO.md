@@ -24,6 +24,7 @@ Priority: P0 (must) · P1 (should) · P2 (nice).
 | 0.4 | Dedicated PRD: `PRD_graph_analysis.md` | P0 | Architect | ☐ | Metrics + smell rules specified w/ I/O. |
 | 0.5 | Dedicated PRD: `PRD_agent_workflow.md` | P0 | Architect | ☐ | Roles, loop, stop criterion specified. |
 | 0.6 | Dedicated PRD: `PRD_token_efficiency.md` | P0 | Architect | ☐ | Baseline vs guided method specified. |
+| 0.6b | Dedicated PRD: `PRD_research_questions.md` | P0 | Architect | ☑ | 8 EX04 §4 questions tracked w/ evidence source + surface. |
 | 0.7 | Get all docs approved before coding | P0 | Lead | ☐ | Sign-off recorded. |
 | 0.8 | `uv init`, `pyproject.toml` (ruff/coverage/deps), `uv.lock` | P0 | DevOps | ☐ | `uv sync` works; lockfile committed. |
 | 0.9 | `.gitignore`, `.env-example`, `config/*.json` (v1.00) | P0 | DevOps | ☐ | Secrets externalised; configs versioned. |
@@ -85,10 +86,11 @@ Priority: P0 (must) · P1 (should) · P2 (nice).
 | 6.1 | Before/after architecture report | P0 | QA | ☐ | Screenshots + metric deltas in `reports/`. |
 | 6.2 | `GRAPH_REPORT.md` curated from Grphify | P0 | QA | ☐ | Committed under `artifacts/`. |
 | 6.3 | Results notebook (centrality + token charts) | P1 | QA | ☐ | Bar/heatmap charts; LaTeX where useful. |
-| 6.4 | Root-cause write-up of findings | P0 | QA | ☐ | Each finding traced to a structural cause. |
+| 6.4 | Root-cause write-up of findings | P0 | QA | ☐ | Each finding traced to a structural cause. *(feeds RQ-5)* |
 | 6.5 | `README.md` (install, usage, examples, config, license) | P0 | Lead | ☐ | User-manual grade; screenshots + Obsidian shots. |
 | 6.6 | Prompt book (significant prompts log) | P1 | Lead | ☐ | `docs/PROMPT_BOOK.md` with context + outputs. |
-| 6.7 | Creativity / extensibility section | P1 | Lead | ☐ | ≥1 novel use or extension idea documented. |
+| 6.7 | Creativity / extensibility section | P1 | Lead | ☐ | ≥1 novel use or extension idea documented. *(feeds RQ-8)* |
+| 6.8 | Answer all 8 research questions (`PRD_research_questions.md`) | P0 | Lead | ☐ | Every RQ has a written answer + pointer; surfaced in README/reports/Obsidian per coverage checklist. |
 
 ## Phase 7 — Quality Gates (continuous)  *(applies every phase)*
 
