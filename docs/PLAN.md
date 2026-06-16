@@ -179,11 +179,22 @@ defensive: missing optional fields default, unknown fields are ignored.
 
 ### 3.3 Token-efficiency record (produced)
 
+Per the brief (§5.5) the comparison reports more than tokens: each mode also records the
+**files/units read**, the **iterations/rounds**, and the **time/quality to reach root cause**.
+
 ```jsonc
 {
-  "task": "summarise_architecture",
-  "baseline":      { "in_tokens": 184320, "out_tokens": 2100, "usd": 0.94 },
-  "graph_guided":  { "in_tokens": 41210,  "out_tokens": 1980, "usd": 0.22 },
+  "task": "summarise_architecture_and_fix",
+  "baseline": {
+    "in_tokens": 184320, "out_tokens": 2100, "usd": 0.94,
+    "files_read": 47, "units_read": 210, "iterations": 6,
+    "time_to_root_cause_s": 612, "root_cause_found": true
+  },
+  "graph_guided": {
+    "in_tokens": 41210, "out_tokens": 1980, "usd": 0.22,
+    "files_read": 4, "units_read": 23, "iterations": 2,
+    "time_to_root_cause_s": 143, "root_cause_found": true
+  },
   "savings_pct": 76.6
 }
 ```

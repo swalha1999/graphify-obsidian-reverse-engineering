@@ -74,22 +74,22 @@ Priority: P0 (must) · P1 (should) · P2 (nice).
 
 | # | Task | Pri | Owner | Status | Definition of Done |
 |---|---|---|---|---|---|
-| 5.1 | `EfficiencyMeter` — token + cost accounting | P0 | Dev | ☐ | Logs in/out tokens + USD per run. |
-| 5.2 | Baseline run (raw code → LLM) | P0 | Dev | ☐ | Token cost recorded for same task. |
-| 5.3 | Graph-guided run (index/hot/graph → LLM) | P0 | Dev | ☐ | Token cost recorded for same task. |
-| 5.4 | Comparison report + savings % | P0 | QA | ☐ | `reports/` table; honest explanation if no saving. |
+| 5.1 | `EfficiencyMeter` — tokens, files/units read, iterations, time-to-root-cause | P0 | Dev | ☐ | Logs in/out tokens + USD **and** files/units read, iterations, time/quality-to-root-cause per run. |
+| 5.2 | Baseline run (raw code → LLM) | P0 | Dev | ☐ | All metrics recorded for same task. |
+| 5.3 | Graph-guided run (index/hot/graph → LLM) | P0 | Dev | ☐ | All metrics recorded for same task. |
+| 5.4 | Comparison report + savings % | P0 | QA | ☐ | `reports/` table covers tokens, files/units, iterations, root-cause speed; honest explanation if no saving. |
 
 ## Phase 6 — Reports, Research & README  *(Milestone M6)*
 
 | # | Task | Pri | Owner | Status | Definition of Done |
 |---|---|---|---|---|---|
-| 6.1 | Before/after architecture report | P0 | QA | ☐ | Screenshots + metric deltas in `reports/`. |
+| 6.1 | Before/after report — architecture **+ knowledge-level (Obsidian)** | P0 | QA | ☐ | Screenshots + metric deltas in `reports/`; documents Obsidian pages/links/insights added and how understanding changed *(feeds RQ-1)*. |
 | 6.2 | `GRAPH_REPORT.md` curated from Grphify | P0 | QA | ☐ | Committed under `artifacts/`. |
 | 6.3 | Results notebook (centrality + token charts) | P1 | QA | ☐ | Bar/heatmap charts; LaTeX where useful. |
 | 6.4 | Root-cause write-up of findings | P0 | QA | ☐ | Each finding traced to a structural cause. *(feeds RQ-5)* |
 | 6.5 | `README.md` (install, usage, examples, config, license) | P0 | Lead | ☐ | User-manual grade; screenshots + Obsidian shots. |
 | 6.6 | Prompt book (significant prompts log) | P1 | Lead | ☐ | `docs/PROMPT_BOOK.md` with context + outputs. |
-| 6.7 | Creativity / extensibility section | P1 | Lead | ☐ | ≥1 novel use or extension idea documented. *(feeds RQ-8)* |
+| 6.7 | Original extension(s) — ≥1 per major part (FR-17) | P1 | Lead | ☐ | ≥1 original extension/analysis delivered per major part (e.g. orphan-component+auto-docs, blast-radius/impact report, `hot.md` from `git diff`); documented *(feeds RQ-8)*. |
 | 6.8 | Answer all 8 research questions (`PRD_research_questions.md`) | P0 | Lead | ☐ | Every RQ has a written answer + pointer; surfaced in README/reports/Obsidian per coverage checklist. |
 
 ## Phase 7 — Quality Gates (continuous)  *(applies every phase)*
