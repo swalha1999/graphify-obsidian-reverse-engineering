@@ -12,6 +12,7 @@ from __future__ import annotations
 from abc import ABC, abstractmethod
 from collections.abc import Callable
 
+from arch_agent.agents.guards import assert_graph_only
 from arch_agent.shared.gatekeeper import ApiGatekeeper
 
 ModelClient = Callable[[str], str]
@@ -41,8 +42,13 @@ class Agent(ABC):
         return raw.strip()
 
     def run(self, context: str) -> str:
-        """Build the prompt, call the model via the gatekeeper, and parse the result."""
+        """Build the prompt, call the model via the gatekeeper, and parse the result.
+
+        The prompt is checked to contain graph artifacts only (FR 3.5); a raw-source
+        dump raises :class:`RawSourceError` before any model call is made.
+        """
         prompt = self.build_prompt(context)
+        assert_graph_only(prompt)
         return self.parse(self._gatekeeper.execute(self._client, prompt))
 
 
