@@ -1,0 +1,88 @@
+# CI quality gates (docs/TODO.md Phase 7; PRD §2.2 KPIs, NFR-3, NFR-4).
+#
+# Established EARLY so every push and pull request runs the full gate stack
+# before feature work lands. The steps run in order and the build fails on the
+# first failure: a cheap gate (lint/format) guards an expensive one (tests).
+#
+# Forward-compatible: the repo is docs-only today (the Python scaffold is
+# TODO 0.8 — pyproject.toml / uv.lock / src / tests). Every project-dependent
+# gate is guarded by a `pyproject.toml` probe and SKIPS cleanly until the
+# scaffold lands, so the pipeline is GREEN now and each gate activates
+# automatically once its tooling is committed — no edit to this file required.
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  quality-gates:
+    name: Quality gates
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Official uv installer. Python 3.12 here will match pyproject's
+      # requires-python once the scaffold (TODO 0.8) is committed.
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          python-version: "3.12"
+
+      # Probe for the Python project so the gates below skip on a docs-only
+      # tree instead of failing. Auto-activates when TODO 0.8 lands pyproject.
+      - name: Detect Python project
+        id: detect
+        run: |
+          if [ -f pyproject.toml ]; then
+            echo "has_project=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_project=false" >> "$GITHUB_OUTPUT"
+            echo "No pyproject.toml yet (scaffold pending TODO 0.8) — project gates skip."
+          fi
+
+      - name: Install workspace (uv sync)
+        if: steps.detect.outputs.has_project == 'true'
+        run: uv sync
+
+      # ruff = 0 violations (PRD §2.2 KPIs, NFR-4; TODO 7.2).
+      - name: Lint (ruff check)
+        if: steps.detect.outputs.has_project == 'true'
+        run: uv run ruff check .
+
+      - name: Format check (ruff format)
+        if: steps.detect.outputs.has_project == 'true'
+        run: uv run ruff format --check .
+
+      - name: Type check (mypy)
+        if: steps.detect.outputs.has_project == 'true'
+        run: uv run mypy
+
+      # Coverage threshold is config-driven: the >=85% gate (PRD §2.2; TODO 7.3)
+      # lives in [tool.coverage.report].fail_under in pyproject.toml (TODO 0.8),
+      # so this step carries no hard-coded number that could diverge from config.
+      - name: Tests + coverage (pytest, fail under 85%)
+        if: steps.detect.outputs.has_project == 'true'
+        run: uv run pytest --cov --cov-report=term-missing
+
+      # Files <=150 LOC (PRD §2.2, NFR-4; TODO 7.1). TODO 7.1 drops in
+      # scripts/check_line_limit.py; until then this skips.
+      - name: 150-line file check
+        run: |
+          if [ -f scripts/check_line_limit.py ]; then
+            uv run python scripts/check_line_limit.py
+          else
+            echo "line-limit check pending TODO 7.1 (scripts/check_line_limit.py absent)"
+          fi
+
+      # No secrets in code; keys via env only, .env git-ignored (PRD NFR-3;
+      # TODO 7.4). A committed scripts/secret_scan.py wires the real scan;
+      # until then this skips.
+      - name: Secret scan
+        run: |
+          if [ -f scripts/secret_scan.py ]; then
+            uv run python scripts/secret_scan.py
+          else
+            echo "secret scan pending TODO 7.4 (scripts/secret_scan.py absent)"
+          fi
