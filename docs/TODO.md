@@ -49,7 +49,7 @@ Priority: P0 (must) · P1 (should) · P2 (nice).
 | 2.1 | `MetricsCalculator` — centrality, fan-in/out, proximity | P0 | Dev | ☑ | `services/metrics.py`: fan-in/out, degree centrality, BFS proximity; values match hand-computed fixture; 100%. |
 | 2.2 | Cycle detection | P0 | Dev | ☑ | `services/cycles.py`: iterative Tarjan SCC (cycles = SCC>1) + self-loops; detects fixture cycle; 100%. |
 | 2.3 | `SmellDetector` — God Node / SPOF / oversized / cyclic | P0 | Dev | ☑ | `services/smells.py` + `findings.py`: 4 smells w/ evidence + severity, config-driven thresholds, ranked; articulation points added to metrics; 100%. |
-| 2.4 | `ReverseEngineer` — block diagram + OOP class map | P0 | Dev | ☐ | Emits Markdown/Mermaid block + class map. |
+| 2.4 | `ReverseEngineer` — block diagram + OOP class map | P0 | Dev | ☑ | `services/reverse_engineer.py`: Mermaid module flowchart + OOP classDiagram (inheritance + usage); deterministic; 100%. |
 | 2.5 | Parallelise independent metric computations | P1 | Dev | ☐ | Thread/process pool; thread-safe; tested. |
 
 ## Phase 3 — Agent Crew  *(Milestone M3)*
