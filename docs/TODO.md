@@ -38,7 +38,7 @@ Priority: P0 (must) · P1 (should) · P2 (nice).
 | 1.1 | `RepoLoader` — clone/load target repo | P0 | Dev | ☑ | `infra/repo_loader.py`: loads URL (shallow clone) or local path; injected runner; 100% tested. |
 | 1.2 | `GrphifyRunner` — subprocess wrapper | P0 | Dev | ☑ | `infra/grphify_runner.py`: wraps `graphify extract`, lifts graph.json/report/html into `artifacts/`; injected runner; 100% tested. |
 | 1.3 | `models.py` — Node/Edge/GraphModel | P0 | Dev | ☑ | `services/models.py`: frozen dataclasses + StrEnum, self-validating; `node_ids`/`dangling_edges` helpers; 100% tested. |
-| 1.4 | `GraphLoader` — parse `graph.json` (defensive) | P0 | Dev | ☐ | Handles missing/unknown fields; tested w/ fixture. |
+| 1.4 | `GraphLoader` — parse `graph.json` (defensive) | P0 | Dev | ☑ | `services/graph_loader.py`: skips unknown type/kind + malformed entries, defaults version/optionals; tested vs `tests/fixtures/graph.json`; 100%. |
 | 1.5 | `ObsidianSync` — write vault + `index.md` + `hot.md` | P0 | Dev | ☐ | Vault opens in Obsidian; graph visible. |
 | 1.6 | Pick target repo + record env setup notes | P0 | Lead | ☐ | One repo runs end-to-end; fallback noted. |
 
