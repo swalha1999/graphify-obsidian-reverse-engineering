@@ -72,6 +72,31 @@ class MetricsCalculator:
         dist = self.proximity(seed)
         return {nid: 1.0 / (1 + dist[nid]) if nid in dist else 0.0 for nid in self._ids}
 
+    def articulation_points(self) -> set[str]:
+        """Nodes whose removal increases the number of connected components (SPOF basis)."""
+        adj = self._undirected_adj()
+        base = self._count_components(adj, None)
+        return {nid for nid in self._ids if self._count_components(adj, nid) > base}
+
+    @staticmethod
+    def _count_components(adj: dict[str, set[str]], exclude: str | None) -> int:
+        """Count connected components, optionally with one node removed."""
+        seen: set[str] = set() if exclude is None else {exclude}
+        count = 0
+        for start in adj:
+            if start in seen:
+                continue
+            count += 1
+            stack = [start]
+            seen.add(start)
+            while stack:
+                cur = stack.pop()
+                for neighbour in adj[cur]:
+                    if neighbour not in seen:
+                        seen.add(neighbour)
+                        stack.append(neighbour)
+        return count
+
     def _undirected_adj(self) -> dict[str, set[str]]:
         """Undirected adjacency between known nodes (dangling edges excluded)."""
         adj: dict[str, set[str]] = {nid: set() for nid in self._ids}
