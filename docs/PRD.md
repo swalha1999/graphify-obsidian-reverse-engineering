@@ -88,6 +88,9 @@ Obsidian knowledge base a human can browse and converse with.
 | KPI | Target |
 |---|---|
 | Token reduction (graph-guided vs. baseline) on the same task | ≥ 40 % fewer tokens (report actual either way) |
+| Files / textual units read (graph-guided vs. baseline) | measured & reported for both modes |
+| Iterations / research rounds to reach the fix (graph-guided vs. baseline) | measured & reported for both modes |
+| Quality / speed of reaching root cause & fix (graph-guided vs. baseline) | measured & reported (e.g. wall-clock or rounds-to-root-cause) |
 | Architectural issues detected & reported | ≥ 3, each with graph evidence |
 | Unit-test pass rate after refactor loop | 100 % (no regressions) |
 | Files exceeding 150 LOC | 0 |
@@ -103,8 +106,11 @@ Obsidian knowledge base a human can browse and converse with.
 - [ ] An Obsidian vault under `obsidian/` opens and shows the graph + notes.
 - [ ] The agent crew emits ranked, evidence-backed architectural recommendations.
 - [ ] The refactor loop applies at least one recommendation, re-graphs, and re-tests.
-- [ ] A `reports/` document shows **before vs. after** architecture and **baseline vs.
-      graph-guided** token cost.
+- [ ] A `reports/` document shows **before vs. after** architecture *and* the **knowledge-level
+      before/after in Obsidian** (pages/links/insights added, how understanding changed).
+- [ ] The **baseline vs. graph-guided** comparison reports tokens, files/units read,
+      iterations/rounds, and time/quality-to-root-cause — not tokens alone.
+- [ ] At least one **original extension/analysis** is delivered and documented.
 - [ ] All quality gates pass (ruff = 0, coverage ≥ 85 %, files ≤ 150 LOC, secrets externalised).
 
 ---
@@ -127,10 +133,11 @@ Obsidian knowledge base a human can browse and converse with.
 | FR-10 | Apply a selected recommendation to the codebase (e.g. split oversized module). | Should |
 | FR-11 | Re-run Grphify and unit tests after each change; loop until stop criterion. | Must |
 | FR-12 | Enforce a stop criterion (max iterations, no-further-improvement, or budget cap). | Must |
-| FR-13 | Run a *baseline* (raw-code) analysis and a *graph-guided* analysis; log token usage. | Must |
-| FR-14 | Emit a before/after architecture report and a baseline-vs-graph-guided cost report. | Must |
+| FR-13 | Run a *baseline* (raw-code) analysis and a *graph-guided* analysis; log **tokens, files/units read, iterations/rounds, and time/quality-to-root-cause** for both. | Must |
+| FR-14 | Emit a before/after report covering **architecture**, **knowledge-level changes in Obsidian** (pages/links/insights added), and the **baseline-vs-graph-guided** comparison. | Must |
 | FR-15 | Expose every operation through a single **SDK** entry point. | Must |
 | FR-16 | Route all LLM/API calls through a centralized **gatekeeper** (rate limit + retry + log). | Must |
+| FR-17 | Provide ≥ 1 original extension/analysis **per major part** (e.g. orphan-component detection + auto-docs, blast-radius/impact report, `hot.md` from `git diff` + `graph.json`, suspect ranking vs. failed tests). | Should |
 
 ### 3.2 Non-Functional Requirements
 
