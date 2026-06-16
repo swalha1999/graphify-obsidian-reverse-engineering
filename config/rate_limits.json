@@ -1,0 +1,15 @@
+{
+  "version": "1.00",
+  "_comment": "ApiGatekeeper limits (PRD FR-16, PRD_agent_workflow §8). Overflow queues rather than crashing.",
+  "requests_per_minute": 50,
+  "max_concurrent": 4,
+  "retry": {
+    "max_attempts": 5,
+    "backoff_seconds": 2,
+    "backoff_factor": 2.0
+  },
+  "queue": {
+    "max_size": 100,
+    "overflow": "block"
+  }
+}

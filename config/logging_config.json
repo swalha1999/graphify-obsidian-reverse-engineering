@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "config_version": "1.00",
+  "_comment": "Python logging.config.dictConfig schema. `version` (=1) is logging's schema version; `config_version` is ours (NFR-9).",
+  "disable_existing_loggers": false,
+  "formatters": {
+    "standard": {
+      "format": "%(asctime)s %(levelname)s %(name)s: %(message)s"
+    }
+  },
+  "handlers": {
+    "console": {
+      "class": "logging.StreamHandler",
+      "level": "INFO",
+      "formatter": "standard",
+      "stream": "ext://sys.stdout"
+    }
+  },
+  "root": {
+    "level": "INFO",
+    "handlers": ["console"]
+  }
+}
