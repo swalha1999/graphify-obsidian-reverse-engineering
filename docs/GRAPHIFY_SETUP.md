@@ -84,13 +84,30 @@ without a live (paid) run.
 
 ---
 
-## 5. Status / remaining
+## 5. Chosen target repo & status
 
-- ✅ Tool identified and verified on PyPI (legitimate: MIT, by `safishamsi`, links to the repo).
-- ✅ Setup notes + a schema-accurate fixture committed (Phase 1–2 unblocked).
-- ⏳ **Pending (your machine):** run `uv tool install graphifyy`, then `graphify --help`, then a
-  first `graphify extract` on the chosen target repo (paid) to capture a **real** `graph.json`
-  under `artifacts/`. Record the chosen repo + any setup quirks here (TODO 1.6).
+**Target repo (TODO 1.6):** [`soarsmu/BugsInPy`](https://github.com/soarsmu/BugsInPy) — real,
+reproducible bugs from real Python projects. Justification in the [README](../README.md#target-repository).
+**Fallback:** [`andela/buggy-python`](https://github.com/andela/buggy-python) if a specific bug is
+too hostile to set up.
+
+BugsInPy is a benchmark *framework*, so the graph target is a single checked-out bug, not the
+framework repo itself. Per the brief, work in an isolated environment (`virtualenv`/Docker):
+
+```bash
+git clone https://github.com/soarsmu/BugsInPy
+export PATH=$PATH:$(pwd)/BugsInPy/framework/bin
+bugsinpy-checkout -p <project> -i <bug_id> -w data/target   # e.g. -p black -i 1
+# then run graphify on the working copy:
+graphify extract data/target/<project>
+```
+
+- ✅ Tool identified and verified on PyPI (MIT, by `safishamsi`).
+- ✅ Setup notes + schema fixture committed (Phase 1–2 unblocked).
+- ✅ Target repo chosen (BugsInPy) + recorded in `config/setup.json` and the README.
+- ⏳ **Pending (your machine, paid):** `uv tool install graphifyy`; pick a concrete
+  `project`+`bug_id` (fill `target_repo.bugsinpy` in `config/setup.json`); `bugsinpy-checkout`;
+  `graphify extract` → capture a **real** `graph.json` under `artifacts/`; note any setup quirks here.
 
 > The agent-driven auto-install was blocked by a safety guard (web-inferred package name); run the
 > install command yourself or add a permission rule for it.
