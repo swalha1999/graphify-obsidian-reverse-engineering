@@ -1,4 +1,9 @@
-# PRD — Graph-Guided Reverse Engineering & Token-Efficient Agentic Debugging
+# Assignment Brief — Graph-Guided Reverse Engineering & Token-Efficient Agentic Debugging
+
+> **What this document is:** a faithful English restatement of the EX04 assignment
+> (the canonical, readable mirror of `hw4_requirements.pdf`). It is the *requirements
+> source of truth*. The product spec we build in response lives in [`PRD.md`](PRD.md);
+> the research questions are tracked in [`PRD_research_questions.md`](PRD_research_questions.md).
 
 **Project:** Reverse Engineering, Debugging and Token-Efficient Agentic AI with Grphify and Obsidian
 **Source assignment:** EX04 (Lesson L07), Dr. Yoram Segal — June 2026, v1.0

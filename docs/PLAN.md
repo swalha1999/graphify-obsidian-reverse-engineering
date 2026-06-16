@@ -267,13 +267,21 @@ grader tune without code edits.
 
 ## 6. Repository Structure (planned)
 
+Scaffolded already (✅): `README.md`, `pyproject.toml`, `uv.lock`, `.python-version`,
+`.gitignore`, `.github/workflows/ci.yml`, and the package seed
+`src/arch_agent/{__init__.py, version.py}` with `tests/`. The rest below is the target
+layout that later phases fill in.
+
 ```
-hw4_vibe_coding/
-├── README.md
-├── pyproject.toml          # build, ruff, coverage, deps
-├── uv.lock
-├── .env-example            # API key placeholders
-├── .gitignore
+graphify-obsidian-reverse-engineering/
+├── README.md               # ✅ seeded
+├── pyproject.toml          # ✅ build, ruff, mypy, coverage, dev deps
+├── uv.lock                 # ✅ committed
+├── .python-version         # ✅ pins 3.12
+├── .gitignore              # ✅
+├── .env-example            # API key placeholders (pending)
+├── .github/workflows/
+│   └── ci.yml              # ✅ quality-gates workflow
 ├── config/
 │   ├── setup.json          # target repo, model, thresholds, stop criterion (v1.00)
 │   ├── rate_limits.json    # gatekeeper limits (v1.00)
@@ -281,7 +289,8 @@ hw4_vibe_coding/
 ├── src/
 │   ├── main.py             # thin CLI → SDK
 │   └── arch_agent/
-│       ├── __init__.py     # __version__, public exports
+│       ├── __init__.py     # ✅ __version__, public exports
+│       ├── version.py      # ✅ version constant + validation (moves under shared/ later)
 │       ├── constants.py
 │       ├── sdk/sdk.py
 │       ├── services/       # graph_loader, models, metrics, smells,
@@ -298,7 +307,7 @@ hw4_vibe_coding/
 ├── reports/                # before/after + baseline-vs-guided token report
 ├── data/                   # cloned/sample target repo
 ├── notebooks/              # results analysis (charts: centrality, token savings)
-└── docs/                   # PRD, PLAN, TODO, dedicated PRDs
+└── docs/                   # assignment_brief, PRD, PLAN, TODO, dedicated PRDs (incl. PRD_research_questions)
 ```
 
 ---

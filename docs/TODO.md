@@ -8,7 +8,8 @@
 | **Date** | 2026-06-12 |
 | **Status** | Active |
 
-Derived from [`PRD.md`](PRD.md) and [`PLAN.md`](PLAN.md).
+Derived from [`PRD.md`](PRD.md) and [`PLAN.md`](PLAN.md); source requirements in
+[`assignment_brief.md`](assignment_brief.md).
 Status legend: ☐ not started · ◐ in progress · ☑ done.
 Priority: P0 (must) · P1 (should) · P2 (nice).
 
@@ -26,8 +27,8 @@ Priority: P0 (must) · P1 (should) · P2 (nice).
 | 0.6 | Dedicated PRD: `PRD_token_efficiency.md` | P0 | Architect | ☐ | Baseline vs guided method specified. |
 | 0.6b | Dedicated PRD: `PRD_research_questions.md` | P0 | Architect | ☑ | 8 EX04 §4 questions tracked w/ evidence source + surface. |
 | 0.7 | Get all docs approved before coding | P0 | Lead | ☐ | Sign-off recorded. |
-| 0.8 | `uv init`, `pyproject.toml` (ruff/coverage/deps), `uv.lock` | P0 | DevOps | ☐ | `uv sync` works; lockfile committed. |
-| 0.9 | `.gitignore`, `.env-example`, `config/*.json` (v1.00) | P0 | DevOps | ☐ | Secrets externalised; configs versioned. |
+| 0.8 | `pyproject.toml` (ruff/mypy/coverage/dev deps), `uv.lock`, `.python-version` | P0 | DevOps | ☑ | `uv sync` works; lockfile committed. Runtime deps (Grphify/agents) added per-phase. |
+| 0.9 | `.gitignore`, `.env-example`, `config/*.json` (v1.00) | P0 | DevOps | ◐ | `.gitignore` ✅; `.env-example` + `config/*.json` pending. |
 | 0.10 | Install/verify Grphify + Obsidian locally | P0 | DevOps | ☐ | Grphify runs on a sample repo. |
 
 ## Phase 1 — Graph Pipeline  *(Milestone M1)*
@@ -87,7 +88,7 @@ Priority: P0 (must) · P1 (should) · P2 (nice).
 | 6.2 | `GRAPH_REPORT.md` curated from Grphify | P0 | QA | ☐ | Committed under `artifacts/`. |
 | 6.3 | Results notebook (centrality + token charts) | P1 | QA | ☐ | Bar/heatmap charts; LaTeX where useful. |
 | 6.4 | Root-cause write-up of findings | P0 | QA | ☐ | Each finding traced to a structural cause. *(feeds RQ-5)* |
-| 6.5 | `README.md` (install, usage, examples, config, license) | P0 | Lead | ☐ | User-manual grade; screenshots + Obsidian shots. |
+| 6.5 | `README.md` (install, usage, examples, config, license) | P0 | Lead | ◐ | Seed committed (overview + dev commands); needs full §8 sections, screenshots + Obsidian shots. |
 | 6.6 | Prompt book (significant prompts log) | P1 | Lead | ☐ | `docs/PROMPT_BOOK.md` with context + outputs. |
 | 6.7 | Original extension(s) — ≥1 per major part (FR-17) | P1 | Lead | ☐ | ≥1 original extension/analysis delivered per major part (e.g. orphan-component+auto-docs, blast-radius/impact report, `hot.md` from `git diff`); documented *(feeds RQ-8)*. |
 | 6.8 | Answer all 8 research questions (`PRD_research_questions.md`) | P0 | Lead | ☐ | Every RQ has a written answer + pointer; surfaced in README/reports/Obsidian per coverage checklist. |
@@ -96,12 +97,13 @@ Priority: P0 (must) · P1 (should) · P2 (nice).
 
 | # | Task | Pri | Owner | Status | Definition of Done |
 |---|---|---|---|---|---|
-| 7.1 | All files ≤ 150 LOC | P0 | All | ☐ | Automated check passes. |
-| 7.2 | `ruff check` = 0 violations | P0 | All | ☐ | Clean on `uv run ruff check`. |
-| 7.3 | Coverage ≥ 85 % | P0 | QA | ☐ | `uv run pytest --cov` ≥ 85 %, fails under. |
-| 7.4 | No secrets in code; `.env-example` present | P0 | DevOps | ☐ | Scan clean. |
-| 7.5 | Version stamps at 1.00 validated at startup | P0 | Dev | ☐ | Config/code version check on boot. |
-| 7.6 | Public GitHub repo w/ README + clean history | P0 | Lead | ☐ | Repo public; deliverables pushed. |
+| 7.0 | CI workflow — quality gates on push/PR (`.github/workflows/ci.yml`) | P0 | DevOps | ☑ | Runs uv sync + ruff + ruff format + mypy + pytest/cov; green on `main`. 150-line & secret-scan steps wired, activate w/ 7.1/7.4. |
+| 7.1 | All files ≤ 150 LOC (`scripts/check_line_limit.py`) | P0 | All | ☐ | Script committed; CI 150-line step enforces. |
+| 7.2 | `ruff check` = 0 violations | P0 | All | ◐ | Gate wired in CI + passing on current code. |
+| 7.3 | Coverage ≥ 85 % | P0 | QA | ◐ | Gate wired (`fail_under=85`); currently 100% on seed. |
+| 7.4 | No secrets in code; `.env-example` present (`scripts/secret_scan.py`) | P0 | DevOps | ☐ | `.env` git-ignored ✅; `.env-example` + scan script pending. |
+| 7.5 | Version stamps at 1.00 validated at startup | P0 | Dev | ◐ | `version.py` (constant + `parse/is_compatible`) seeded; startup check pending. |
+| 7.6 | Public GitHub repo w/ README + clean history | P0 | Lead | ◐ | Repo public + README seeded; deliverables ongoing. |
 
 ---
 
