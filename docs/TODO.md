@@ -58,7 +58,7 @@ Priority: P0 (must) · P1 (should) · P2 (nice).
 |---|---|---|---|---|---|
 | 3.1 | `ApiGatekeeper` — rate limit + queue + retry + log | P0 | Dev | ☑ | `shared/gatekeeper.py`: rate-limit + concurrency cap (overflow queues/blocks or rejects) + exponential-backoff retry + logging; injectable clock/sleep; 100% incl. concurrency tests. |
 | 3.2 | Agent roles (Explorer/Analyst/Architect/Refactor/Reporter) | P0 | Dev | ☑ | `agents/roles.py`: abstract `Agent` base (prompt + gatekept call + parse) + 5 single-responsibility subclasses + `build_crew`; 100%. |
-| 3.3 | `AgentCrew` orchestration (LangGraph) | P0 | Dev | ☐ | analyse→recommend graph runs to completion. |
+| 3.3 | `AgentCrew` orchestration (LangGraph) | P0 | Dev | ☑ | `agents/crew.py`: real LangGraph `StateGraph` explore→analyse→recommend→report; smells detected up front; runs to completion; 100%. |
 | 3.4 | `RecommendationReport` generation | P0 | Dev | ☐ | Ranked, evidence-backed JSON + Markdown. |
 | 3.5 | Agents consume graph artifacts (not raw code) | P0 | Dev | ☐ | Verified: no whole-file dumps in prompts. |
 
