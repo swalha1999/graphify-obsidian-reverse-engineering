@@ -68,7 +68,7 @@ Priority: P0 (must) · P1 (should) · P2 (nice).
 |---|---|---|---|---|---|
 | 4.1 | `RefactorEngine` — apply a recommendation | P1 | Dev | ☑ | `services/refactor.py`: apply `FileEdit`s (modify/create, incl. split-module) with snapshot + one-shot revert; 100%. |
 | 4.2 | Re-run Grphify + unit tests each iteration | P0 | Dev | ☑ | `services/verification.py`: `Reverifier.reverify` re-graphs + reloads + runs tests (injectable `TestRunner`, default pytest); 100%. |
-| 4.3 | Green-test + improvement gate w/ auto-revert | P0 | Dev | ☐ | Bad change reverted (ADR-004). |
+| 4.3 | Green-test + improvement gate w/ auto-revert | P0 | Dev | ☑ | `services/gate.py`: `RefactorGate.attempt` keeps a change only if tests green AND target centrality drops ≥ threshold, else reverts (ADR-004); 100%. |
 | 4.4 | Stop criterion (max iters / no-improve / budget) | P0 | Dev | ☐ | Loop terminates deterministically; config-driven. |
 
 ## Phase 5 — Token-Efficiency Study  *(Milestone M5)*
