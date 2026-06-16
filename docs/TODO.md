@@ -46,7 +46,7 @@ Priority: P0 (must) · P1 (should) · P2 (nice).
 
 | # | Task | Pri | Owner | Status | Definition of Done |
 |---|---|---|---|---|---|
-| 2.1 | `MetricsCalculator` — centrality, fan-in/out, proximity | P0 | Dev | ☐ | Values match hand-computed fixture. |
+| 2.1 | `MetricsCalculator` — centrality, fan-in/out, proximity | P0 | Dev | ☑ | `services/metrics.py`: fan-in/out, degree centrality, BFS proximity; values match hand-computed fixture; 100%. |
 | 2.2 | Cycle detection | P0 | Dev | ☐ | Detects known cycle in fixture. |
 | 2.3 | `SmellDetector` — God Node / SPOF / oversized / cyclic | P0 | Dev | ☐ | ≥3 smell types w/ evidence; threshold from config. |
 | 2.4 | `ReverseEngineer` — block diagram + OOP class map | P0 | Dev | ☐ | Emits Markdown/Mermaid block + class map. |
