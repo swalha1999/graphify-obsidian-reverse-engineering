@@ -40,7 +40,7 @@ Priority: P0 (must) · P1 (should) · P2 (nice).
 | 1.3 | `models.py` — Node/Edge/GraphModel | P0 | Dev | ☑ | `services/models.py`: frozen dataclasses + StrEnum, self-validating; `node_ids`/`dangling_edges` helpers; 100% tested. |
 | 1.4 | `GraphLoader` — parse `graph.json` (defensive) | P0 | Dev | ☑ | `services/graph_loader.py`: skips unknown type/kind + malformed entries, defaults version/optionals; tested vs `tests/fixtures/graph.json`; 100%. |
 | 1.5 | `ObsidianSync` — write vault + `index.md` + `hot.md` | P0 | Dev | ☑ | `services/obsidian_sync.py`: writes index/hot + per-node notes with `[[wikilinks]]` (graph-view edges); 100% tested. Visual check in Obsidian app = user step. |
-| 1.6 | Pick target repo + record env setup notes | P0 | Lead | ☐ | One repo runs end-to-end; fallback noted. |
+| 1.6 | Pick target repo + record env setup notes | P0 | Lead | ☑ | Picked **BugsInPy** (justified in README); fallback buggy-python noted; recorded in `config/setup.json` + `GRAPHIFY_SETUP.md`. Live `bugsinpy-checkout` + `graphify extract` = user step. |
 
 ## Phase 2 — Reverse Engineering & Analysis  *(Milestone M2)*
 
