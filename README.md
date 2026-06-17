@@ -1,62 +1,161 @@
 # ArchAgent
 
-Token-efficient architectural analysis & refactoring agent. ArchAgent turns an
+**Token-efficient architectural analysis & refactoring agent.** ArchAgent turns an
 unfamiliar Python repo into a knowledge graph with **Grphify**, browses it in
-**Obsidian**, and runs a multi-agent crew to reverse-engineer the architecture,
-detect structural smells, and prove token savings vs. feeding raw code to an LLM.
+**Obsidian**, and runs a multi-agent crew (LangGraph) to reverse-engineer the
+architecture, detect structural smells, and **prove token savings** versus feeding raw
+code to an LLM.
 
-See [`docs/PRD.md`](docs/PRD.md), [`docs/PLAN.md`](docs/PLAN.md), and
-[`docs/TODO.md`](docs/TODO.md) for the full specification and task board.
+> **Status:** complete and run end-to-end on the target repo. The headline result —
+> the graph-guided agent used **50.3% fewer tokens** than the raw-code baseline (above
+> the 40% target), while both reached the bug's root cause with tests green. See
+> [`reports/token_efficiency.md`](reports/token_efficiency.md).
 
-## Target repository
+Full spec: [`docs/PRD.md`](docs/PRD.md) · [`docs/PLAN.md`](docs/PLAN.md) ·
+[`docs/TODO.md`](docs/TODO.md) · research questions [`docs/PRD_research_questions.md`](docs/PRD_research_questions.md).
 
-We analyse **[`andela/buggy-python`](https://github.com/andela/buggy-python)** — a small
-collection of self-contained Python scripts that contain deliberate bugs, built specifically
-to exercise bug **identification and fixing**.
+---
 
-**Why we chose it:**
+## How it works
 
-- **Reproducible with zero setup friction.** It clones and runs with no per-bug `virtualenv`
-  or Docker and no dependency hell, so our engineering effort goes into the *analysis, agent,
-  and refactor* work — not environment wrangling. This directly follows the brief's warning not
-  to let environment setup become a rabbit hole.
-- **A clean find → root-cause → fix → verify loop.** The scripts are purpose-built for spotting
-  and fixing bugs, which maps one-to-one onto our refactor loop (apply a change → re-run tests →
-  keep only if green) and makes the **root-cause** and **before/after** write-ups precise.
-- **A small, comprehensible graph — but still real architecture.** The codebase is large enough
-  to surface genuine structural signal (centrality, fan-in/out, cycles, God-Node candidates) yet
-  small enough that the graph and the diagrams stay readable and the findings are easy to verify.
-- **Cheap and fast to iterate.** A compact graph keeps each `graphify extract` and every
-  refactor-loop re-graph inexpensive, so the **token-efficiency study** stays well within budget
-  and the loop can run more iterations under the same cap — and runs are deterministic and
-  reliable on any grader's machine.
+```
+target repo ──> graphify extract ──> graph.json ──> GraphLoader ──> metrics + smells
+                                          │                              │
+                                          ▼                              ▼
+                                   Obsidian vault              ranked recommendations
+                                  (index/hot/notes)            (LangGraph agent crew)
+                                          │
+                          baseline (raw code) vs graph-guided  ──>  token study
+```
 
-**Trade-off & fallback.** Being small, it tells a less dramatic "real bug in a mature library"
-story than a benchmark like `soarsmu/BugsInPy`; for a scoped assignment we judged the clarity,
-low cost, and reliability the better trade. If a richer target is wanted later,
-**[`martinpeck/broken-python`](https://github.com/martinpeck/broken-python)** is the next step up
-(documented in [`docs/GRAPHIFY_SETUP.md`](docs/GRAPHIFY_SETUP.md)).
+The thesis (avoiding *Lost in the Middle*): reasoning over a compact **graph** +
+curated notes is cheaper and sharper than dumping whole files at the model.
 
-> **Status:** scaffolding. This commit seeds the Python package and the CI
-> quality gates; the service and agent layers land in later phases (see TODO).
+---
 
-## Requirements
+## Quick start
 
-- Python 3.12 (pinned in [`.python-version`](.python-version))
-- [`uv`](https://docs.astral.sh/uv/) for dependency and task management
+**Prerequisites:** Python 3.12, [`uv`](https://docs.astral.sh/uv/), and the Grphify CLI
+(`uv tool install graphifyy`; the command is `graphify`). See
+[`docs/GRAPHIFY_SETUP.md`](docs/GRAPHIFY_SETUP.md).
+
+```bash
+uv sync                                           # install
+cp .env-example .env                              # then add ANTHROPIC_API_KEY=...
+git clone https://github.com/andela/buggy-python data/target   # the target (git-ignored)
+uv run python -m arch_agent                       # run the full pipeline
+```
+
+This loads `.env`, validates versions, then writes the deliverables to `artifacts/`,
+`obsidian/`, and `reports/`. Grphify runs **code-only** (free, AST); the agent crew and
+the token study use the configured model (`claude-sonnet-4-6`). Total cost on
+buggy-python is a few cents.
+
+---
+
+## What the analysis found (this run)
+
+The graph (11 nodes, 9 edges) made structure explicit that the file list hid:
+
+- **God Node `snippets_io`** — the I/O layer everything routes through (centrality 0.40, fan-out 4).
+- **God Node + SPOF `snippets_foobar_foo`** — an articulation point (fan-in 3): its removal disconnects the graph.
+
+That central node is exactly where the canonical bug lives — a **mutable default
+argument** (`def foo(bar=[])`). Structure pointed straight at the highest-risk code; full
+trace in [`reports/root_cause.md`](reports/root_cause.md).
+
+---
+
+## Architecture (as extracted from the code)
+
+- **Block diagram + OOP class map:** [`reports/architecture.md`](reports/architecture.md) (Mermaid, generated by `ReverseEngineer`).
+- **Knowledge graph:** [`artifacts/graph.json`](artifacts/graph.json), [`artifacts/GRAPH_REPORT.md`](artifacts/GRAPH_REPORT.md), [`artifacts/graph.html`](artifacts/graph.html).
+
+The system itself (C4 views, ADRs) is in [`docs/PLAN.md`](docs/PLAN.md): a thin CLI →
+`ArchAgentSDK` → domain services (`graph_loader`, `metrics`, `cycles`, `smells`,
+`reverse_engineer`, `obsidian_sync`, `efficiency`) + a LangGraph agent crew, all external
+calls routed through an `ApiGatekeeper`.
+
+## Agent workflow
+
+A LangGraph `StateGraph`: **explore → analyse → recommend → report**. Five
+single-responsibility agents (Explorer, Analyst, Architect, Refactor, Reporter) share a
+base; every prompt is guarded to contain **graph artifacts only, never raw source**
+(`agents/guards.py`). Spec: [`docs/PRD_agent_workflow.md`](docs/PRD_agent_workflow.md).
+
+## How Grphify & Obsidian are used
+
+- **Grphify** (`GrphifyRunner`) stages a code-only copy and runs `graphify extract` →
+  `graph.json` (free AST). `graphify cluster-only` produced `GRAPH_REPORT.md` + `graph.html`.
+- **Obsidian** (`ObsidianSync`) writes a browsable vault: [`obsidian/index.md`](obsidian/index.md)
+  (entry point), [`obsidian/hot.md`](obsidian/hot.md) (high-fan-in nodes), and one
+  `[[wikilinked]]` note per node so the graph view renders the dependency structure. Open
+  the `obsidian/` folder as a vault to explore it.
+
+## Reverse-engineering process
+
+`GraphLoader` parses graphify's node-link JSON (adapter in
+[`graphify_adapter.py`](src/arch_agent/services/graphify_adapter.py)) into typed models;
+`MetricsCalculator` computes fan-in/out, degree centrality, proximity (BFS), and
+articulation points; `cycles.py` finds dependency cycles (Tarjan); `SmellDetector` ranks
+God Node / SPOF / oversized / cyclic findings with evidence. Spec:
+[`docs/PRD_graph_analysis.md`](docs/PRD_graph_analysis.md).
+
+## Bug, root cause & fix
+
+`def foo(bar=[])` reuses one list across calls (defaults evaluate once at def time); fix is
+`bar=None` + `if bar is None: bar = []`. The hub module `snippets/io.py` also has line-level
+bugs (`data("loans")`, `!==`, `sun`/`length` typos). Full analysis:
+[`reports/root_cause.md`](reports/root_cause.md).
+
+## Before / after & token efficiency
+
+- **Before/after** (architecture, knowledge level, code): [`reports/before_after.md`](reports/before_after.md).
+- **Token study** (baseline vs graph-guided, all metrics): [`reports/token_efficiency.md`](reports/token_efficiency.md) — **50.3% fewer tokens**.
+- **Charts:** [`notebooks/results.ipynb`](notebooks/results.ipynb).
+
+## Research questions
+
+The eight EX04 research questions are answered with pointers in
+[`docs/PRD_research_questions.md`](docs/PRD_research_questions.md).
+
+## Extensions
+
+Original analyses beyond the minimum are documented in
+[`docs/EXTENSIONS.md`](docs/EXTENSIONS.md).
+
+---
+
+## Configuration
+
+All thresholds/limits live in `config/*.json` (versioned `1.00`, validated at startup):
+`setup.json` (target repo, model, smell thresholds, stop criterion), `rate_limits.json`
+(gatekeeper), `logging_config.json`. No hard-coded values; API keys via `.env` only.
 
 ## Development
 
 ```bash
-uv sync                                   # create the environment
-uv run ruff check .                       # lint
-uv run ruff format --check .              # format check
-uv run mypy                               # type check
-uv run pytest --cov --cov-report=term-missing   # tests + coverage (>=85%)
+uv run ruff check .                              # lint (0 violations)
+uv run ruff format --check .                     # format
+uv run mypy                                      # type check (strict)
+uv run pytest --cov --cov-report=term-missing    # tests + coverage (>=85%, currently 100%)
 ```
 
-The same gates run in CI on every push and pull request
-(see [`.github/workflows/ci.yml`](.github/workflows/ci.yml)).
+The same gates run in CI on every push/PR ([`.github/workflows/ci.yml`](.github/workflows/ci.yml)).
+
+## Deliverables map
+
+| Deliverable | Location |
+|---|---|
+| Solution code + agent workflow | `src/arch_agent/` |
+| Grphify outputs | `artifacts/graph.json`, `GRAPH_REPORT.md`, `graph.html` |
+| Obsidian vault | `obsidian/` |
+| Bug analysis / root cause | `reports/root_cause.md` |
+| Before/after | `reports/before_after.md` |
+| Recommendations | `reports/recommendations.md` / `.json` |
+| Token comparison | `reports/token_efficiency.md` |
+| Block diagram + OOP map | `reports/architecture.md` |
+| Charts | `notebooks/results.ipynb` |
 
 ## License
 

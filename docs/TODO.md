@@ -88,7 +88,7 @@ Priority: P0 (must) · P1 (should) · P2 (nice).
 | 6.2 | `GRAPH_REPORT.md` curated from Grphify | P0 | QA | ☑ | `artifacts/GRAPH_REPORT.md` (+ `graph.html`) from `graphify cluster-only` (free): 14 nodes, God Nodes, cycles, suggested questions. |
 | 6.3 | Results notebook (centrality + token charts) | P1 | QA | ☑ | `notebooks/results.ipynb`: centrality bar chart + baseline-vs-guided token bars (real data via the package); LaTeX savings formula; runs clean. |
 | 6.4 | Root-cause write-up of findings | P0 | QA | ☑ | `reports/root_cause.md`: mutable-default bug in `foo()` (the flagged hub/SPOF), graph-guided investigation path, each finding traced to a structural cause *(feeds RQ-5)*. |
-| 6.5 | `README.md` (install, usage, examples, config, license) | P0 | Lead | ◐ | Seed committed (overview + dev commands); needs full §8 sections, screenshots + Obsidian shots. |
+| 6.5 | `README.md` (install, usage, examples, config, license) | P0 | Lead | ☑ | Full §8 README: how-it-works, quick start, findings, architecture, agent workflow, Grphify/Obsidian usage, reverse-engineering, root cause, before/after, token efficiency, config, deliverables map. |
 | 6.6 | Prompt book (significant prompts log) | P1 | Lead | ☐ | `docs/PROMPT_BOOK.md` with context + outputs. |
 | 6.7 | Original extension(s) — ≥1 per major part (FR-17) | P1 | Lead | ☐ | ≥1 original extension/analysis delivered per major part (e.g. orphan-component+auto-docs, blast-radius/impact report, `hot.md` from `git diff`); documented *(feeds RQ-8)*. |
 | 6.8 | Answer all 8 research questions (`PRD_research_questions.md`) | P0 | Lead | ☐ | Every RQ has a written answer + pointer; surfaced in README/reports/Obsidian per coverage checklist. |
