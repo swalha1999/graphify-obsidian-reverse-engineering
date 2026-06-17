@@ -78,7 +78,7 @@ Priority: P0 (must) · P1 (should) · P2 (nice).
 | 5.1 | `EfficiencyMeter` — tokens, files/units read, iterations, time-to-root-cause | P0 | Dev | ☑ | `services/efficiency.py`: accumulates tokens (+USD from config prices), files/units, iterations, time-to-root-cause → `RunRecord` (to_dict); injectable clock; 100%. |
 | 5.2 | Baseline run (raw code → LLM) | P0 | Dev | ☑ | `services/study.py`: `run_baseline` dumps all `.py` files (naive control, bypasses graph guard) + meters tokens/files/units/iterations/time; 100%. *(real paid run = user step)* |
 | 5.3 | Graph-guided run (index/hot/graph → LLM) | P0 | Dev | ☑ | `services/study.py`: `run_graph_guided` feeds only curated artifacts + meters same metrics; test shows guided ≪ baseline tokens; 100%. *(real paid run = user step)* |
-| 5.4 | Comparison report + savings % | P0 | QA | ☐ | `reports/` table covers tokens, files/units, iterations, root-cause speed; honest explanation if no saving. |
+| 5.4 | Comparison report + savings % | P0 | QA | ☑ | `services/comparison.py`: `EfficiencyComparison` → savings %, `to_dict`/`to_markdown` table over all metrics + honest verdict; 100%. |
 
 ## Phase 6 — Reports, Research & README  *(Milestone M6)*
 
