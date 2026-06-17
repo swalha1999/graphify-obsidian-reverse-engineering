@@ -84,7 +84,7 @@ Priority: P0 (must) · P1 (should) · P2 (nice).
 
 | # | Task | Pri | Owner | Status | Definition of Done |
 |---|---|---|---|---|---|
-| 6.1 | Before/after report — architecture **+ knowledge-level (Obsidian)** | P0 | QA | ☐ | Screenshots + metric deltas in `reports/`; documents Obsidian pages/links/insights added and how understanding changed *(feeds RQ-1)*. |
+| 6.1 | Before/after report — architecture **+ knowledge-level (Obsidian)** | P0 | QA | ☑ | `reports/before_after.md`: architecture before/after (graph-revealed hub + SPOF), knowledge-level before/after (Obsidian vault), code before/after *(feeds RQ-1)*. |
 | 6.2 | `GRAPH_REPORT.md` curated from Grphify | P0 | QA | ☐ | Committed under `artifacts/`. |
 | 6.3 | Results notebook (centrality + token charts) | P1 | QA | ☐ | Bar/heatmap charts; LaTeX where useful. |
 | 6.4 | Root-cause write-up of findings | P0 | QA | ☐ | Each finding traced to a structural cause. *(feeds RQ-5)* |
