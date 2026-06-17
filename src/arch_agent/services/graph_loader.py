@@ -13,6 +13,7 @@ from enum import StrEnum
 from pathlib import Path
 from typing import Any, TypeVar
 
+from arch_agent.services.graphify_adapter import is_graphify, normalize
 from arch_agent.services.models import Edge, EdgeKind, GraphModel, Node, NodeType
 
 _DEFAULT_VERSION = "0.0"
@@ -34,6 +35,8 @@ class GraphLoader:
         """
         if not isinstance(data, dict):
             raise ValueError("graph.json must be a JSON object")
+        if is_graphify(data):
+            data = normalize(data)  # graphify node-link -> PLAN schema
         version = self._str(data.get("version")) or _DEFAULT_VERSION
         nodes = self._nodes(data.get("nodes"))
         edges = self._edges(data.get("edges"))
