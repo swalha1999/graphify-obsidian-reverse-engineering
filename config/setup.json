@@ -8,7 +8,7 @@
     "_note": "Clone into data/target (git-ignored), then run graphify extract on it. Fallback: martinpeck/broken-python."
   },
   "model": {
-    "name": "claude-opus-4-8",
+    "name": "claude-sonnet-4-6",
     "temperature": 0.0,
     "pricing_usd_per_mtok": { "input": 0.0, "output": 0.0 }
   },
