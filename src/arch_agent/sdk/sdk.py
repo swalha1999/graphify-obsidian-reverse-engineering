@@ -58,8 +58,11 @@ class ArchAgentSDK:
         return self._root / "data" / "target"
 
     def build_graph(self, repo: str | None = None) -> GraphModel:
-        """Load the target repo, run Grphify, and parse ``graph.json``."""
-        local = self._repo_loader.load(repo or self._config.target_repo, self.target_dir)
+        """Load the target repo (reuse an existing checkout), run Grphify, parse it."""
+        if self.target_dir.is_dir() and any(self.target_dir.iterdir()):
+            local = self.target_dir  # already checked out (e.g. by the user) — reuse it
+        else:
+            local = self._repo_loader.load(repo or self._config.target_repo, self.target_dir)
         graph_path = self._grphify.run(local, self.dir("artifacts"))
         return GraphLoader().load(graph_path)
 
