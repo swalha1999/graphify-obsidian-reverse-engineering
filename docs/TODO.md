@@ -102,7 +102,7 @@ Priority: P0 (must) · P1 (should) · P2 (nice).
 | 7.2 | `ruff check` = 0 violations | P0 | All | ◐ | Gate wired in CI + passing on current code. |
 | 7.3 | Coverage ≥ 85 % | P0 | QA | ◐ | Gate wired (`fail_under=85`); currently 100% on seed. |
 | 7.4 | No secrets in code; `.env-example` present (`scripts/secret_scan.py`) | P0 | DevOps | ☐ | `.env` git-ignored ✅; `.env-example` + scan script pending. |
-| 7.5 | Version stamps at 1.00 validated at startup | P0 | Dev | ◐ | `version.py` (constant + `parse/is_compatible`) seeded; startup check pending. |
+| 7.5 | Version stamps at 1.00 validated at startup | P0 | Dev | ☑ | `version.py` + `shared/config.py`: CLI validates code version (`is_compatible`) **and** config versions (`load_config`) on boot. |
 | 7.6 | Public GitHub repo w/ README + clean history | P0 | Lead | ◐ | Repo public + README seeded; deliverables ongoing. |
 
 ---
