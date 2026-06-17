@@ -87,3 +87,33 @@ def run_baseline(
         root_cause_found=root_cause_found,
         tests_green=tests_green,
     )
+
+
+def run_graph_guided(
+    artifacts: list[Path],
+    task: str,
+    client: ModelClient,
+    gatekeeper: ApiGatekeeper,
+    *,
+    iterations: int = 1,
+    count_tokens: TokenCounter = estimate_tokens,
+    clock: Callable[[], float] = time.monotonic,
+    root_cause_found: bool = True,
+    tests_green: bool = True,
+) -> RunRecord:
+    """Graph-guided: feed only the curated artifacts (index.md / hot.md / graph.json)."""
+    parts = "\n\n".join(f"# {a.name}\n{a.read_text(encoding='utf-8')}" for a in artifacts)
+    context = f"--- GRAPH ARTIFACTS ({len(artifacts)} files) ---\n{parts}"
+    return _run_measured(
+        task=task,
+        context=context,
+        files_read=len(artifacts),
+        units_read=parts.count("\n") + 1,
+        client=client,
+        gatekeeper=gatekeeper,
+        iterations=iterations,
+        count_tokens=count_tokens,
+        clock=clock,
+        root_cause_found=root_cause_found,
+        tests_green=tests_green,
+    )
