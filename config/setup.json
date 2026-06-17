@@ -2,11 +2,10 @@
   "version": "1.00",
   "_comment": "Central config (ADR-005, NFR-2). Thresholds mirror PRD_graph_analysis §2.2 and PRD_agent_workflow §6. Edit target_repo/model to taste; pricing defaults to 0 so token-only comparison still works until real rates are filled in.",
   "target_repo": {
-    "url": "https://github.com/soarsmu/BugsInPy",
+    "url": "https://github.com/andela/buggy-python",
     "ref": "master",
     "local_path": "data/target",
-    "_note": "BugsInPy is a benchmark framework; check out one project+bug (e.g. `bugsinpy-checkout -p <project> -i <bug_id> -w data/target`) and run graphify extract on that working copy. Fallback: andela/buggy-python.",
-    "bugsinpy": { "project": "", "bug_id": "" }
+    "_note": "Clone into data/target (git-ignored), then run graphify extract on it. Fallback: martinpeck/broken-python."
   },
   "model": {
     "name": "claude-opus-4-8",

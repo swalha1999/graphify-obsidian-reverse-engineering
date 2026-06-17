@@ -10,27 +10,31 @@ See [`docs/PRD.md`](docs/PRD.md), [`docs/PLAN.md`](docs/PLAN.md), and
 
 ## Target repository
 
-We analyse **[`soarsmu/BugsInPy`](https://github.com/soarsmu/BugsInPy)** — a curated
-benchmark of **real, reproducible bugs from real, mature Python projects**.
+We analyse **[`andela/buggy-python`](https://github.com/andela/buggy-python)** — a small
+collection of self-contained Python scripts that contain deliberate bugs, built specifically
+to exercise bug **identification and fixing**.
 
 **Why we chose it:**
 
-- **Realistic, not toy code.** BugsInPy draws bugs from established open-source projects, so
-  the reverse-engineering is genuine — exactly the "debug unfamiliar real code" signal the
-  assignment rewards, rather than small scripted snippets.
-- **A built-in find → root-cause → fix → verify loop.** Each bug ships with a **buggy version,
-  a fixed version, a failing test, and the test command**. That maps one-to-one onto our
-  refactor loop (apply a change → re-run tests → keep only if green) and makes the
-  **root-cause** and **before/after** write-ups precise and evidence-backed.
-- **Richer knowledge graphs.** Real codebases yield far more modules/classes/edges than toy
-  repos, so structural smells (**God Nodes**, high centrality, cycles) actually appear — and the
-  **token-efficiency** win of reasoning over the graph instead of raw files is more pronounced.
-- **Clean isolation.** BugsInPy pins each bug to a specific commit + environment, so the graph,
-  metrics, and fix all refer to one well-defined system state.
+- **Reproducible with zero setup friction.** It clones and runs with no per-bug `virtualenv`
+  or Docker and no dependency hell, so our engineering effort goes into the *analysis, agent,
+  and refactor* work — not environment wrangling. This directly follows the brief's warning not
+  to let environment setup become a rabbit hole.
+- **A clean find → root-cause → fix → verify loop.** The scripts are purpose-built for spotting
+  and fixing bugs, which maps one-to-one onto our refactor loop (apply a change → re-run tests →
+  keep only if green) and makes the **root-cause** and **before/after** write-ups precise.
+- **A small, comprehensible graph — but still real architecture.** The codebase is large enough
+  to surface genuine structural signal (centrality, fan-in/out, cycles, God-Node candidates) yet
+  small enough that the graph and the diagrams stay readable and the findings are easy to verify.
+- **Cheap and fast to iterate.** A compact graph keeps each `graphify extract` and every
+  refactor-loop re-graph inexpensive, so the **token-efficiency study** stays well within budget
+  and the loop can run more iterations under the same cap — and runs are deterministic and
+  reliable on any grader's machine.
 
-**Trade-off & fallback.** BugsInPy is the most setup-intensive option (per-bug environments via
-`virtualenv`/Docker). We scope to **one small/medium bug** and, if a specific bug proves too
-hostile to set up, fall back to **[`andela/buggy-python`](https://github.com/andela/buggy-python)**
+**Trade-off & fallback.** Being small, it tells a less dramatic "real bug in a mature library"
+story than a benchmark like `soarsmu/BugsInPy`; for a scoped assignment we judged the clarity,
+low cost, and reliability the better trade. If a richer target is wanted later,
+**[`martinpeck/broken-python`](https://github.com/martinpeck/broken-python)** is the next step up
 (documented in [`docs/GRAPHIFY_SETUP.md`](docs/GRAPHIFY_SETUP.md)).
 
 > **Status:** scaffolding. This commit seeds the Python package and the CI

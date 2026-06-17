@@ -19,8 +19,8 @@ def _fixture_findings() -> list[Finding]:
 
 
 def test_build_report_carries_findings_and_metadata() -> None:
-    report = build_report(_fixture_findings(), repo="soarsmu/BugsInPy", generated_at=TS)
-    assert report.repo == "soarsmu/BugsInPy"
+    report = build_report(_fixture_findings(), repo="andela/buggy-python", generated_at=TS)
+    assert report.repo == "andela/buggy-python"
     assert report.generated_at == TS
     assert len(report.findings) == len(_fixture_findings())
 

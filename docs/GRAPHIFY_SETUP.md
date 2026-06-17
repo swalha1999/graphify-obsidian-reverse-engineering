@@ -86,28 +86,26 @@ without a live (paid) run.
 
 ## 5. Chosen target repo & status
 
-**Target repo (TODO 1.6):** [`soarsmu/BugsInPy`](https://github.com/soarsmu/BugsInPy) — real,
-reproducible bugs from real Python projects. Justification in the [README](../README.md#target-repository).
-**Fallback:** [`andela/buggy-python`](https://github.com/andela/buggy-python) if a specific bug is
-too hostile to set up.
+**Target repo (TODO 1.6):** [`andela/buggy-python`](https://github.com/andela/buggy-python) —
+small, self-contained buggy Python scripts; clones and runs with no per-bug environment.
+Justification in the [README](../README.md#target-repository).
+**Fallback:** [`martinpeck/broken-python`](https://github.com/martinpeck/broken-python) for a
+slightly richer target if wanted.
 
-BugsInPy is a benchmark *framework*, so the graph target is a single checked-out bug, not the
-framework repo itself. Per the brief, work in an isolated environment (`virtualenv`/Docker):
+Clone the repo into `data/target` (git-ignored), then run Grphify on it:
 
 ```bash
-git clone https://github.com/soarsmu/BugsInPy
-export PATH=$PATH:$(pwd)/BugsInPy/framework/bin
-bugsinpy-checkout -p <project> -i <bug_id> -w data/target   # e.g. -p black -i 1
+git clone https://github.com/andela/buggy-python data/target
 # then run graphify on the working copy:
-graphify extract data/target/<project>
+graphify extract data/target
 ```
 
 - ✅ Tool identified and verified on PyPI (MIT, by `safishamsi`).
 - ✅ Setup notes + schema fixture committed (Phase 1–2 unblocked).
-- ✅ Target repo chosen (BugsInPy) + recorded in `config/setup.json` and the README.
-- ⏳ **Pending (your machine, paid):** `uv tool install graphifyy`; pick a concrete
-  `project`+`bug_id` (fill `target_repo.bugsinpy` in `config/setup.json`); `bugsinpy-checkout`;
-  `graphify extract` → capture a **real** `graph.json` under `artifacts/`; note any setup quirks here.
+- ✅ Target repo chosen (`andela/buggy-python`) + recorded in `config/setup.json` and the README.
+- ⏳ **Pending (your machine, paid):** `uv tool install graphifyy`; clone the repo into
+  `data/target`; `graphify extract data/target` → capture a **real** `graph.json` under
+  `artifacts/`; note any setup quirks here.
 
 > The agent-driven auto-install was blocked by a safety guard (web-inferred package name); run the
 > install command yourself or add a permission rule for it.

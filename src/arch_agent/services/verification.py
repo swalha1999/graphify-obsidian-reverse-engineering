@@ -3,7 +3,7 @@
 After a refactor, :class:`Reverifier` re-runs Grphify (to get the updated graph)
 and the target's unit tests, returning both outcomes. The test command is
 injected (``TestRunner``) because targets differ — the default runs ``pytest``,
-but BugsInPy projects supply their own command.
+but some targets supply their own command.
 """
 
 from __future__ import annotations
