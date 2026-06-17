@@ -41,13 +41,21 @@ def _config(target: str) -> Config:
     )
 
 
+def _fake_git(args: Sequence[str]) -> None:
+    # a clone must leave a non-empty checkout for the code-only staging copy
+    if args and args[0] == "clone":
+        dest = Path(args[-1])
+        dest.mkdir(parents=True, exist_ok=True)
+        (dest / "main.py").write_text("x = 1\n", encoding="utf-8")
+
+
 def _sdk(root: Path, target: str) -> ArchAgentSDK:
     return ArchAgentSDK(
         _config(target),
         _client,
         root,
         grphify=GrphifyRunner(runner=FakeGraphify()),
-        repo_loader=RepoLoader(runner=lambda args: None),
+        repo_loader=RepoLoader(runner=_fake_git),
         gatekeeper=ApiGatekeeper(RateLimitConfig(requests_per_minute=0), sleep=lambda _: None),
     )
 
