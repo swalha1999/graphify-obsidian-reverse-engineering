@@ -13,9 +13,10 @@
     "pricing_usd_per_mtok": { "input": 0.0, "output": 0.0 }
   },
   "graph_analysis": {
-    "god_node_centrality": 0.50,
-    "god_node_fan_in": 20,
-    "spof_fan_in": 15,
+    "_comment": "Tuned for the small buggy-python target (11 nodes); PRD_graph_analysis defaults (0.50/20/15) are calibrated for large repos.",
+    "god_node_centrality": 0.30,
+    "god_node_fan_in": 4,
+    "spof_fan_in": 3,
     "oversized_loc": 300,
     "proximity_max_hops": 4,
     "severity_bands": { "medium": 1.5, "high": 2.0 }
