@@ -56,7 +56,19 @@ def test_deterministic() -> None:
 def test_empty_graph() -> None:
     empty = GraphModel("1.00", (), ())
     assert ReverseEngineer().block_diagram(empty) == "```mermaid\nflowchart LR\n```"
-    assert ReverseEngineer().class_map(empty) == "```mermaid\nclassDiagram\n```"
+    # No classes -> a note, not an empty classDiagram (which Mermaid rejects).
+    assert ReverseEngineer().class_map(empty) == (
+        "_No classes found — this codebase is module/function-only._"
+    )
+
+
+def test_class_map_note_when_no_classes() -> None:
+    # A module/function-only graph (like the buggy-python target) must not emit
+    # an empty ```mermaid classDiagram``` block.
+    nodes = (Node("mod.a", NodeType.MODULE), Node("func.f", NodeType.FUNCTION))
+    out = ReverseEngineer().class_map(GraphModel("1.00", nodes, ()))
+    assert "classDiagram" not in out
+    assert out.startswith("_No classes found")
 
 
 def test_class_inherit_between_two_classes() -> None:

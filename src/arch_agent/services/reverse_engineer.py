@@ -34,8 +34,15 @@ class ReverseEngineer:
         return "\n".join(["```mermaid", "flowchart LR", *nodes, *edges, "```"])
 
     def class_map(self, graph: GraphModel) -> str:
-        """Mermaid class diagram: classes with inheritance (``<|--``) and usage (``-->``)."""
+        """Mermaid class diagram: classes with inheritance (``<|--``) and usage (``-->``).
+
+        Returns a Markdown note (not a Mermaid block) when the graph has no classes —
+        an empty ``classDiagram`` is a Mermaid parse error, so a module/function-only
+        codebase must not emit one.
+        """
         classes = {n.id for n in graph.nodes if n.type is NodeType.CLASS}
+        if not classes:
+            return "_No classes found — this codebase is module/function-only._"
         nodes = [f"  class {_mid(nid)}" for nid in sorted(classes)]
         relations: list[str] = []
         for edge in graph.edges:
