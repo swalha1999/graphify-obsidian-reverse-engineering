@@ -14,6 +14,4 @@ flowchart LR
 
 ## OOP Class Map
 
-```mermaid
-classDiagram
-```
+_No classes found — this codebase is module/function-only._
