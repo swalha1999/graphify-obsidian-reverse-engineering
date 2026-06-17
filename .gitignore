@@ -14,6 +14,10 @@ htmlcov/
 # Secrets (PRD NFR-3: keys via env only, never committed)
 .env
 
+# Cloned target repo + generated artifacts (external / reproducible, not committed)
+data/
+graphify-out/
+
 # OS / editor
 .DS_Store
 .idea/
