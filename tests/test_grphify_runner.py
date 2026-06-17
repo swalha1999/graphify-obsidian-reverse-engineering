@@ -13,7 +13,7 @@ from arch_agent.infra.grphify_runner import GrphifyRunner
 
 
 class FakeGraphify:
-    """Simulates `graphify extract` by writing the named files into cwd/graphify-out."""
+    """Simulates `graphify extract` by writing the named files into <cwd>/graphify-out."""
 
     def __init__(self, produced: Sequence[str]) -> None:
         self.produced = produced
@@ -24,32 +24,39 @@ class FakeGraphify:
         out = cwd / "graphify-out"
         out.mkdir(parents=True, exist_ok=True)
         for name in self.produced:
-            (out / name).write_text("{}" if name.endswith(".json") else "x")
+            (out / name).write_text("{}" if name.endswith(".json") else "x", encoding="utf-8")
+
+
+def _repo(tmp_path: Path) -> Path:
+    repo = tmp_path / "repo"
+    repo.mkdir()
+    (repo / "main.py").write_text("x = 1\n", encoding="utf-8")
+    return repo
 
 
 def test_run_returns_graph_json_under_artifacts(tmp_path: Path) -> None:
     runner = FakeGraphify(["graph.json", "GRAPH_REPORT.md", "graph.html"])
     artifacts = tmp_path / "artifacts"
-    result = GrphifyRunner(runner=runner).run(repo_path=tmp_path / "repo", artifacts_dir=artifacts)
+    result = GrphifyRunner(runner=runner).run(_repo(tmp_path), artifacts)
     assert result == artifacts / "graph.json"
     assert result.is_file()
     assert (artifacts / "GRAPH_REPORT.md").is_file()
     assert (artifacts / "graph.html").is_file()
 
 
-def test_run_invokes_extract_with_cwd(tmp_path: Path) -> None:
+def test_run_extracts_staged_code_only_copy(tmp_path: Path) -> None:
     runner = FakeGraphify(["graph.json"])
-    artifacts = tmp_path / "artifacts"
-    GrphifyRunner(runner=runner).run(repo_path=tmp_path / "repo", artifacts_dir=artifacts)
+    GrphifyRunner(runner=runner).run(_repo(tmp_path), tmp_path / "artifacts")
     args, cwd = runner.calls[0]
-    assert args == ["extract", str(tmp_path / "repo")]
-    assert cwd == artifacts
+    assert args[0] == "extract"
+    assert Path(args[1]).name == "code"  # a staged copy, not the original repo
+    assert cwd == Path(args[1])  # graphify runs in the staged dir
 
 
 def test_collect_skips_absent_optional_files(tmp_path: Path) -> None:
     runner = FakeGraphify(["graph.json"])  # no GRAPH_REPORT.md / graph.html
     artifacts = tmp_path / "artifacts"
-    GrphifyRunner(runner=runner).run(repo_path=tmp_path / "repo", artifacts_dir=artifacts)
+    GrphifyRunner(runner=runner).run(_repo(tmp_path), artifacts)
     assert (artifacts / "graph.json").is_file()
     assert not (artifacts / "GRAPH_REPORT.md").exists()
 
@@ -57,7 +64,13 @@ def test_collect_skips_absent_optional_files(tmp_path: Path) -> None:
 def test_run_raises_when_no_graph_produced(tmp_path: Path) -> None:
     runner = FakeGraphify([])  # produces nothing
     with pytest.raises(FileNotFoundError, match="no graph.json"):
-        GrphifyRunner(runner=runner).run(repo_path=tmp_path / "repo", artifacts_dir=tmp_path / "a")
+        GrphifyRunner(runner=runner).run(_repo(tmp_path), tmp_path / "a")
+
+
+def test_ignore_drops_non_code_and_dirs() -> None:
+    skipped = gr._ignore("d", ["a.py", "README.md", ".git", "graphify-out", "notes.txt", "x.png"])
+    assert "a.py" not in skipped  # code is kept
+    assert {"README.md", ".git", "graphify-out", "notes.txt", "x.png"} <= skipped
 
 
 def test_default_runner_is_real_graphify() -> None:
