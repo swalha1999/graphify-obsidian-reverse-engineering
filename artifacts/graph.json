@@ -1,0 +1,273 @@
+{
+  "directed": false,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "label": "main.py",
+      "file_type": "code",
+      "source_file": "main.py",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "main",
+      "community": 1,
+      "norm_label": "main.py"
+    },
+    {
+      "label": "__init__.py",
+      "file_type": "code",
+      "source_file": "snippets/__init__.py",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "snippets_init",
+      "community": 1,
+      "norm_label": "__init__.py"
+    },
+    {
+      "label": "foobar.py",
+      "file_type": "code",
+      "source_file": "snippets/foobar.py",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "snippets_foobar",
+      "community": 1,
+      "norm_label": "foobar.py"
+    },
+    {
+      "label": "foo()",
+      "file_type": "code",
+      "source_file": "snippets/foobar.py",
+      "source_location": "L8",
+      "_origin": "ast",
+      "id": "snippets_foobar_foo",
+      "community": 1,
+      "norm_label": "foo()"
+    },
+    {
+      "label": "The purpose of this snippet is to test your knowledge of default arguments for",
+      "file_type": "rationale",
+      "source_file": "snippets/foobar.py",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "snippets_foobar_rationale_1",
+      "community": 1,
+      "norm_label": "the purpose of this snippet is to test your knowledge of default arguments for"
+    },
+    {
+      "label": "io.py",
+      "file_type": "code",
+      "source_file": "snippets/io.py",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "snippets_io",
+      "community": 0,
+      "norm_label": "io.py"
+    },
+    {
+      "label": "read_file()",
+      "file_type": "code",
+      "source_file": "snippets/io.py",
+      "source_location": "L8",
+      "_origin": "ast",
+      "id": "snippets_io_read_file",
+      "community": 0,
+      "norm_label": "read_file()"
+    },
+    {
+      "label": "calculate_unpaid_loans()",
+      "file_type": "code",
+      "source_file": "snippets/io.py",
+      "source_location": "L14",
+      "_origin": "ast",
+      "id": "snippets_io_calculate_unpaid_loans",
+      "community": 0,
+      "norm_label": "calculate_unpaid_loans()"
+    },
+    {
+      "label": "calculate_paid_loans()",
+      "file_type": "code",
+      "source_file": "snippets/io.py",
+      "source_location": "L23",
+      "_origin": "ast",
+      "id": "snippets_io_calculate_paid_loans",
+      "community": 0,
+      "norm_label": "calculate_paid_loans()"
+    },
+    {
+      "label": "average_paid_loans()",
+      "file_type": "code",
+      "source_file": "snippets/io.py",
+      "source_location": "L32",
+      "_origin": "ast",
+      "id": "snippets_io_average_paid_loans",
+      "community": 0,
+      "norm_label": "average_paid_loans()"
+    },
+    {
+      "label": "Simple python script to read a json file of loan then add perform some calculat",
+      "file_type": "rationale",
+      "source_file": "snippets/io.py",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "snippets_io_rationale_1",
+      "community": 0,
+      "norm_label": "simple python script to read a json file of loan then add perform some calculat"
+    },
+    {
+      "label": "loop.py",
+      "file_type": "code",
+      "source_file": "snippets/loop.py",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "snippets_loop",
+      "community": 2,
+      "norm_label": "loop.py"
+    },
+    {
+      "label": "lambda_array()",
+      "file_type": "code",
+      "source_file": "snippets/loop.py",
+      "source_location": "L7",
+      "_origin": "ast",
+      "id": "snippets_loop_lambda_array",
+      "community": 2,
+      "norm_label": "lambda_array()"
+    },
+    {
+      "label": "Simple array of lambda functions that is used to calculate the addition of a nu",
+      "file_type": "rationale",
+      "source_file": "snippets/loop.py",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "snippets_loop_rationale_1",
+      "community": 2,
+      "norm_label": "simple array of lambda functions that is used to calculate the addition of a nu"
+    }
+  ],
+  "links": [
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "main.py",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "main",
+      "target": "snippets_foobar_foo",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "re_exports",
+      "context": "export",
+      "confidence": "EXTRACTED",
+      "source_file": "snippets/__init__.py",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "snippets_init",
+      "target": "snippets_foobar",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "snippets/__init__.py",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "snippets_init",
+      "target": "snippets_foobar_foo",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "snippets/foobar.py",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "snippets_foobar",
+      "target": "snippets_foobar_foo",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "snippets/foobar.py",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "snippets_foobar_rationale_1",
+      "target": "snippets_foobar",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "snippets/io.py",
+      "source_location": "L32",
+      "weight": 1.0,
+      "source": "snippets_io",
+      "target": "snippets_io_average_paid_loans",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "snippets/io.py",
+      "source_location": "L23",
+      "weight": 1.0,
+      "source": "snippets_io",
+      "target": "snippets_io_calculate_paid_loans",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "snippets/io.py",
+      "source_location": "L14",
+      "weight": 1.0,
+      "source": "snippets_io",
+      "target": "snippets_io_calculate_unpaid_loans",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "snippets/io.py",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "snippets_io",
+      "target": "snippets_io_read_file",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "snippets/io.py",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "snippets_io_rationale_1",
+      "target": "snippets_io",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "snippets/loop.py",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "snippets_loop",
+      "target": "snippets_loop_lambda_array",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "snippets/loop.py",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "snippets_loop_rationale_1",
+      "target": "snippets_loop",
+      "confidence_score": 1.0
+    }
+  ],
+  "hyperedges": []
+}
