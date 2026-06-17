@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import os
+import stat
 import subprocess
 from collections.abc import Sequence
 from pathlib import Path
@@ -9,7 +11,7 @@ from pathlib import Path
 import pytest
 
 from arch_agent.infra import repo_loader as rl
-from arch_agent.infra.repo_loader import RepoLoader, is_url
+from arch_agent.infra.repo_loader import RepoLoader, _force_remove_readonly, is_url
 
 
 class FakeRunner:
@@ -74,6 +76,16 @@ def test_clone_replaces_existing_dest(tmp_path: Path) -> None:
 
 def test_default_runner_is_real_git() -> None:
     assert RepoLoader()._run is rl._run_git
+
+
+def test_force_remove_readonly_clears_bit_and_retries(tmp_path: Path) -> None:
+    target = tmp_path / "ro.txt"
+    target.write_text("x", encoding="utf-8")
+    os.chmod(target, stat.S_IREAD)  # read-only (mimics a git pack file on Windows)
+    removed: list[str] = []
+    _force_remove_readonly(removed.append, str(target), OSError())
+    assert removed == [str(target)]  # the failed op was retried after chmod
+    os.chmod(target, stat.S_IWRITE)  # cleanup
 
 
 def test_run_git_invokes_subprocess(monkeypatch: pytest.MonkeyPatch) -> None:

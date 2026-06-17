@@ -7,13 +7,21 @@ injected (`CommandRunner`) so the loader is unit-testable without network access
 
 from __future__ import annotations
 
+import os
 import shutil
+import stat
 import subprocess
-from collections.abc import Sequence
+from collections.abc import Callable, Sequence
 from pathlib import Path
 from typing import Protocol
 
 _URL_PREFIXES = ("http://", "https://", "git@", "ssh://")
+
+
+def _force_remove_readonly(func: Callable[..., object], path: str, _exc: BaseException) -> None:
+    """``rmtree`` handler: clear the read-only bit (Windows git packs) and retry."""
+    os.chmod(path, stat.S_IWRITE)
+    func(path)
 
 
 class CommandRunner(Protocol):
@@ -55,7 +63,7 @@ class RepoLoader:
     def _clone(self, url: str, dest: Path, ref: str | None) -> Path:
         """Shallow-clone ``url`` into a fresh ``dest`` directory."""
         if dest.exists():
-            shutil.rmtree(dest)
+            shutil.rmtree(dest, onexc=_force_remove_readonly)
         dest.parent.mkdir(parents=True, exist_ok=True)
         self._run(["clone", "--depth", "1", url, str(dest)])
         if ref:

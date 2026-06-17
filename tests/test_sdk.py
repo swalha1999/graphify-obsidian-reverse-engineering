@@ -58,6 +58,15 @@ def test_build_graph(tmp_path: Path) -> None:
     assert (tmp_path / "artifacts" / "graph.json").is_file()
 
 
+def test_build_graph_reuses_existing_checkout(tmp_path: Path) -> None:
+    target = tmp_path / "data" / "target"
+    target.mkdir(parents=True)
+    (target / "keep.py").write_text("x = 1\n", encoding="utf-8")
+    graph = _sdk(tmp_path, "https://github.com/x/y").build_graph()
+    assert (target / "keep.py").is_file()  # reused, not re-cloned (no rmtree)
+    assert graph.node_ids() == frozenset({"a", "b"})
+
+
 def test_detect_smells_and_reverse_engineer(tmp_path: Path) -> None:
     sdk = _sdk(tmp_path, "https://github.com/x/y")
     graph = sdk.build_graph()
