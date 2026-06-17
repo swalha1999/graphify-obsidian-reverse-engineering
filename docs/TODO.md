@@ -91,7 +91,7 @@ Priority: P0 (must) · P1 (should) · P2 (nice).
 | 6.5 | `README.md` (install, usage, examples, config, license) | P0 | Lead | ☑ | Full §8 README: how-it-works, quick start, findings, architecture, agent workflow, Grphify/Obsidian usage, reverse-engineering, root cause, before/after, token efficiency, config, deliverables map. |
 | 6.6 | Prompt book (significant prompts log) | P1 | Lead | ☑ | `docs/PROMPT_BOOK.md`: prompt template, 5 role instructions, worked Architect example (context + real output), baseline-vs-guided study prompts. |
 | 6.7 | Original extension(s) — ≥1 per major part (FR-17) | P1 | Lead | ☑ | `docs/EXTENSIONS.md` + new `services/impact.py` (blast-radius & orphan analysis, tested) — one extension per major part: graph (impact), agent workflow (parallel metrics), token surface (`hot.md`); run on the target *(feeds RQ-8)*. |
-| 6.8 | Answer all 8 research questions (`PRD_research_questions.md`) | P0 | Lead | ☐ | Every RQ has a written answer + pointer; surfaced in README/reports/Obsidian per coverage checklist. |
+| 6.8 | Answer all 8 research questions (`PRD_research_questions.md`) | P0 | Lead | ☑ | All 8 RQs answered with real run data (11 nodes; central `snippets_io`/`foo`; 50.3% token saving; 2 vs 5 files read) + pointers; coverage checklist all ticked. |
 
 ## Phase 7 — Quality Gates (continuous)  *(applies every phase)*
 
