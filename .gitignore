@@ -25,3 +25,6 @@ graphify-out/
 
 # Obsidian per-vault local config / workspace state (not a deliverable)
 .obsidian/
+
+# Loose figures saved by the results notebook (canonical copies are embedded in the .ipynb)
+notebooks/*.png
