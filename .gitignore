@@ -22,3 +22,6 @@ graphify-out/
 .DS_Store
 .idea/
 .vscode/
+
+# Obsidian per-vault local config / workspace state (not a deliverable)
+.obsidian/
