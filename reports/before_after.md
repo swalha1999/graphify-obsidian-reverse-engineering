@@ -74,6 +74,26 @@ source — which is the point: structure first, raw code only when warranted.
 
 ## 4. Screenshots
 
-The Obsidian graph view and vault are reproducible locally: open the `obsidian/`
-folder as a vault in Obsidian. (Run on the grader's machine; the committed Markdown
-under `obsidian/` is the same content the graph view renders.)
+Captured from the generated vault in Obsidian. To reproduce, open the `obsidian/`
+folder as a vault — the committed Markdown is the same content these views render.
+
+**Graph view — the whole dependency structure.** Every node wired to the others by its
+`[[wikilinks]]`; `snippets_io` and `snippets_foobar_foo` sit in the dense centre.
+
+![Obsidian graph view of the whole vault](../obsidian/screenshots/graph_view.jpg)
+
+**Local graph of `snippets_foobar_foo` (the bug node).** It is the hub of its
+neighbourhood — `main`, `snippets_init`, `snippets_foobar`, `index`, and `hot` all
+connect to it, matching its God-Node/SPOF ranking.
+
+![Local graph of snippets_foobar_foo](../obsidian/screenshots/local_graph_foo.jpg)
+
+**`hot.md` — the risk surface.** Nodes ranked by fan-in, `snippets_foobar_foo` at the top
+(fan-in 3): the vault points the reader straight at the highest-risk node.
+
+![hot.md ranked by fan-in](../obsidian/screenshots/hot.jpg)
+
+**A node note + Backlinks — navigability.** Opening `snippets_foobar_foo` shows its
+**5 linked mentions** (what depends on it), so the graph is browsable, not just viewable.
+
+![Node note with backlinks panel](../obsidian/screenshots/node_note.jpg)

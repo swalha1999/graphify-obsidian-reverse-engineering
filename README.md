@@ -92,6 +92,10 @@ base; every prompt is guarded to contain **graph artifacts only, never raw sourc
   `[[wikilinked]]` note per node so the graph view renders the dependency structure. Open
   the `obsidian/` folder as a vault to explore it.
 
+![Obsidian graph view of the generated vault](obsidian/screenshots/graph_view.jpg)
+
+More views (local graph, `hot.md`, backlinks) in [`reports/before_after.md`](reports/before_after.md#4-screenshots).
+
 ## Reverse-engineering process
 
 `GraphLoader` parses graphify's node-link JSON (adapter in
