@@ -92,6 +92,13 @@ base; every prompt is guarded to contain **graph artifacts only, never raw sourc
   `[[wikilinked]]` note per node so the graph view renders the dependency structure. Open
   the `obsidian/` folder as a vault to explore it.
 
+Grphify's interactive cluster view ([`artifacts/graph.html`](artifacts/graph.html)) — node
+size by importance, colour by detected community; `io.py` is the largest hub:
+
+![Grphify interactive cluster view](artifacts/graph_html.jpg)
+
+The same dependency structure browsed in Obsidian's graph view:
+
 ![Obsidian graph view of the generated vault](obsidian/screenshots/graph_view.jpg)
 
 More views (local graph, `hot.md`, backlinks) in [`reports/before_after.md`](reports/before_after.md#4-screenshots).
