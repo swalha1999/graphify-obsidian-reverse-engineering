@@ -1,0 +1,30 @@
+{
+  "repo": "https://github.com/martinpeck/broken-python",
+  "generated_at": "2026-06-19T05:14:32.927202+00:00",
+  "summary": "# Refactoring Recommendations \u2014 `polygons_polygons_polygon`\n\n## Decision Posture\n\nI'm accepting the upstream analysis's core judgment: **one structural locus, two corroborating signals**, severity unconfirmed. My recommendations are therefore **staged by evidence-gating** \u2014 cheap diagnostics first, irreversible structural changes last and only if justified. I will not recommend decomposition work before the blast radius is known, because that risks expensive refactoring against a `[low]`-severity trivial node.\n\n---\n\n## Ordered Recommendations\n\n### R1 \u2014 Instrument before touching (diagnostic gate)\n**Action:** Pull the three numbers the analysis flagged as missing: fan-in count, total graph node count, and the orphaned-component size on node removal.\n**Justification:** Every downstream recommendation's value depends entirely on these. A SPOF separating 5% of a graph is a backlog note; one separating 40% is an incident waiting to happen. **Do no structural work until this gate is passed.**\n**Cost:** Low. **Reversible:** N/A (read-only).\n**Stop condition:** If blast radius < ~10% of graph AND alternate paths exist \u2192 downgrade to \"monitor,\" stop here.\n\n### R2 \u2014 Verify the SPOF is real (cheapest disconfirmation)\n**Action:** Search for redundant/alternate paths bypassing the node.\n**Justification:** An articulation point *by definition* has no bypass. If one exists, the detector's topology claim is stale or wrong, and the entire Rank-1 risk evaporates. This is the single cheapest way to *kill* the most severe finding \u2014 so it runs early. Disconfirmation is more valuable than confirmation here.\n**Cost:** Low. **Reversible:** N/A.\n\n### R3 \u2014 Introduce a redundant path (availability fix) \u2014 *conditional on R1 + R2*\n**Action:** If R1 shows material blast radius and R2 confirms no bypass exists, add an alternate dependency route so the node is no longer an articulation point.\n**Justification:** This directly converts the *binary, certain* availability risk into a non-issue. It is the highest-leverage fix because it targets the **topological fact**, not the gradient symptom. Critically, it's often **lower-cost than decomposition** \u2014 you may resolve the SPOF without redesigning the node at all.\n**Cost:** Medium. **Reversible:** Yes (path can be removed).\n**Why before R4:** Availability risk (binary) outranks maintainability risk (gradient), consistent with the upstream ranking.\n\n### R4 \u2014 Decompose the god node (responsibility split) \u2014 *conditional on cohesion check*\n**Action:** Only if fan-in reflects **mixed/unrelated responsibilities**, split the node along responsibility seams. If fan-in reflects a *legitimate shared utility*, do **not** decompose.\n**Justification:** The God Node is a gradient symptom that overlaps with the SPOF. Decomposing a legitimately-shared utility adds complexity for no gain and may *create* new coupling. This is the most expensive and least reversible action, so it ranks last and carries the strictest gate.\n**Cost:** High. **Reversible:** Poor (structural redesign).\n\n---\n\n## Sequencing Rationale (summary)\n\n| Order | Action | Gate | Risk targeted |\n|---|---|---|---|\n| R1 | Quantify blast radius | none | (decision quality) |\n| R2 | Disprove SPOF | none | kills R1 cheaply |\n| R3 | Add redundant path | R1 material + R2 confirms | availability (binary) |\n| R4 | Decompose | mixed responsibilities only | maintainability (gradient) |\n\n**Guiding principle:** cheap disconfirmation \u2192 availability \u2192 maintainability. Two of four recommendations are *gates that can halt the work*, by design.\n\n---\n\n## Where I'd Revise This\n\n- If R1 reveals **high fan-in but trivial blast radius** (node is a leaf-ish hub, not a cut vertex), R3 becomes moot and R4 becomes the primary lever.\n- If the two smells turn out to be **independent** (contrary to the coupling assumption), R4's cohesion gate needs separate centrality data and may rank higher.\n- I'm treating the `[low]` tags as **unverified, not trustworthy**. If you can share R1's numbers, I'll commit to a firm fix/monitor call instead of this conditional ladder.\n\nShare the fan-in, total node count, and partition size and I'll collapse these conditionals into a definitive plan.",
+  "findings": [
+    {
+      "smell": "god_node",
+      "node": "polygons_polygons_polygon",
+      "evidence": {
+        "centrality": 0.2667,
+        "fan_in": 2,
+        "fan_out": 2
+      },
+      "severity": "low",
+      "recommendation": "Split polygons_polygons_polygon into cohesive sub-modules; invert high-traffic dependencies.",
+      "rationale": "High centrality / fan-in: a structural single point of failure."
+    },
+    {
+      "smell": "spof",
+      "node": "polygons_polygons_polygon",
+      "evidence": {
+        "fan_in": 2,
+        "is_articulation": true
+      },
+      "severity": "low",
+      "recommendation": "Introduce a seam so dependents don't all route through polygons_polygons_polygon.",
+      "rationale": "Articulation point with high fan-in: its removal disconnects the graph."
+    }
+  ]
+}

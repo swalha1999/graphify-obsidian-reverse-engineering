@@ -1,0 +1,37 @@
+{
+  "version": "1.00",
+  "_comment": "Central config (ADR-005, NFR-2). Thresholds mirror PRD_graph_analysis §2.2 and PRD_agent_workflow §6. Edit target_repo/model to taste; pricing defaults to 0 so token-only comparison still works until real rates are filled in.",
+  "target_repo": {
+    "url": "https://github.com/martinpeck/broken-python",
+    "ref": "master",
+    "local_path": "data/target",
+    "_note": "Clone into data/target (git-ignored), then run graphify extract on it. Biggest graphable target from the assignment §3 list (5 modules / 446 LOC). buggy-python is the smaller fallback."
+  },
+  "model": {
+    "name": "claude-opus-4-8",
+    "temperature": 0.0,
+    "pricing_usd_per_mtok": { "input": 0.0, "output": 0.0 }
+  },
+  "graph_analysis": {
+    "_comment": "Tuned for the broken-python target (16 graphed nodes, sparse call graph): the Polygon class is the central hub + articulation point (degree centrality 0.27, fan-in 2), which graphify independently flags as the God Node. PRD_graph_analysis defaults (0.50/20/15) are calibrated for large repos.",
+    "god_node_centrality": 0.25,
+    "god_node_fan_in": 2,
+    "spof_fan_in": 2,
+    "oversized_loc": 300,
+    "proximity_max_hops": 4,
+    "severity_bands": { "medium": 1.5, "high": 2.0 }
+  },
+  "agent_workflow": {
+    "max_iterations": 3,
+    "min_metric_improvement": 0.05,
+    "token_budget": 200000
+  },
+  "token_efficiency": {
+    "task": "find_root_cause_and_fix_target_bug"
+  },
+  "paths": {
+    "artifacts": "artifacts",
+    "obsidian": "obsidian",
+    "reports": "reports"
+  }
+}

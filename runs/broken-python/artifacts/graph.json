@@ -1,0 +1,370 @@
+{
+  "directed": false,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "label": "mathsquiz-step1.py",
+      "file_type": "code",
+      "source_file": "mathsquiz/mathsquiz-step1.py",
+      "source_location": "L1",
+      "_origin": "ast",
+      "community": 5,
+      "norm_label": "mathsquiz-step1.py",
+      "id": "mathsquiz_mathsquiz_step1",
+      "community_name": "Community 5"
+    },
+    {
+      "label": "mathsquiz-step2.py",
+      "file_type": "code",
+      "source_file": "mathsquiz/mathsquiz-step2.py",
+      "source_location": "L1",
+      "_origin": "ast",
+      "community": 1,
+      "norm_label": "mathsquiz-step2.py",
+      "id": "mathsquiz_mathsquiz_step2",
+      "community_name": "Community 1"
+    },
+    {
+      "label": "welcome_message()",
+      "file_type": "code",
+      "source_file": "mathsquiz/mathsquiz-step2.py",
+      "source_location": "L3",
+      "_origin": "ast",
+      "community": 1,
+      "norm_label": "welcome_message()",
+      "id": "mathsquiz_mathsquiz_step2_welcome_message",
+      "community_name": "Community 1"
+    },
+    {
+      "label": "ask_question()",
+      "file_type": "code",
+      "source_file": "mathsquiz/mathsquiz-step2.py",
+      "source_location": "L8",
+      "_origin": "ast",
+      "community": 1,
+      "norm_label": "ask_question()",
+      "id": "mathsquiz_mathsquiz_step2_ask_question",
+      "community_name": "Community 1"
+    },
+    {
+      "label": "print_final_scores()",
+      "file_type": "code",
+      "source_file": "mathsquiz/mathsquiz-step2.py",
+      "source_location": "L23",
+      "_origin": "ast",
+      "community": 1,
+      "norm_label": "print_final_scores()",
+      "id": "mathsquiz_mathsquiz_step2_print_final_scores",
+      "community_name": "Community 1"
+    },
+    {
+      "label": "mathsquiz-step3.py",
+      "file_type": "code",
+      "source_file": "mathsquiz/mathsquiz-step3.py",
+      "source_location": "L1",
+      "_origin": "ast",
+      "community": 2,
+      "norm_label": "mathsquiz-step3.py",
+      "id": "mathsquiz_mathsquiz_step3",
+      "community_name": "Community 2"
+    },
+    {
+      "label": "welcome_message()",
+      "file_type": "code",
+      "source_file": "mathsquiz/mathsquiz-step3.py",
+      "source_location": "L4",
+      "_origin": "ast",
+      "community": 2,
+      "norm_label": "welcome_message()",
+      "id": "mathsquiz_mathsquiz_step3_welcome_message",
+      "community_name": "Community 2"
+    },
+    {
+      "label": "ask_question()",
+      "file_type": "code",
+      "source_file": "mathsquiz/mathsquiz-step3.py",
+      "source_location": "L9",
+      "_origin": "ast",
+      "community": 2,
+      "norm_label": "ask_question()",
+      "id": "mathsquiz_mathsquiz_step3_ask_question",
+      "community_name": "Community 2"
+    },
+    {
+      "label": "print_final_scores()",
+      "file_type": "code",
+      "source_file": "mathsquiz/mathsquiz-step3.py",
+      "source_location": "L27",
+      "_origin": "ast",
+      "community": 2,
+      "norm_label": "print_final_scores()",
+      "id": "mathsquiz_mathsquiz_step3_print_final_scores",
+      "community_name": "Community 2"
+    },
+    {
+      "label": "mathsquiz.py",
+      "file_type": "code",
+      "source_file": "mathsquiz/mathsquiz.py",
+      "source_location": "L1",
+      "_origin": "ast",
+      "community": 4,
+      "norm_label": "mathsquiz.py",
+      "id": "mathsquiz_mathsquiz",
+      "community_name": "Community 4"
+    },
+    {
+      "label": "polygons.py",
+      "file_type": "code",
+      "source_file": "polygons/polygons.py",
+      "source_location": "L1",
+      "_origin": "ast",
+      "community": 0,
+      "norm_label": "polygons.py",
+      "id": "polygons_polygons",
+      "community_name": "Community 0"
+    },
+    {
+      "label": "Polygon",
+      "file_type": "code",
+      "source_file": "polygons/polygons.py",
+      "source_location": "L3",
+      "_origin": "ast",
+      "community": 3,
+      "norm_label": "polygon",
+      "id": "polygons_polygons_polygon",
+      "community_name": "Community 3"
+    },
+    {
+      "label": "Object",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast",
+      "community": 3,
+      "norm_label": "object",
+      "id": "object",
+      "community_name": "Community 3"
+    },
+    {
+      "label": ".__init__()",
+      "file_type": "code",
+      "source_file": "polygons/polygons.py",
+      "source_location": "L5",
+      "_origin": "ast",
+      "community": 3,
+      "norm_label": ".__init__()",
+      "id": "polygons_polygons_polygon_init",
+      "community_name": "Community 3"
+    },
+    {
+      "label": "calc_polygon_details()",
+      "file_type": "code",
+      "source_file": "polygons/polygons.py",
+      "source_location": "L13",
+      "_origin": "ast",
+      "community": 3,
+      "norm_label": "calc_polygon_details()",
+      "id": "polygons_polygons_calc_polygon_details",
+      "community_name": "Community 3"
+    },
+    {
+      "label": "draw_polygon()",
+      "file_type": "code",
+      "source_file": "polygons/polygons.py",
+      "source_location": "L41",
+      "_origin": "ast",
+      "community": 0,
+      "norm_label": "draw_polygon()",
+      "id": "polygons_polygons_draw_polygon",
+      "community_name": "Community 0"
+    },
+    {
+      "label": "# TODO: find a better way to work this stuff out",
+      "file_type": "rationale",
+      "source_file": "polygons/polygons.py",
+      "source_location": "L18",
+      "_origin": "ast",
+      "community": 0,
+      "norm_label": "# todo: find a better way to work this stuff out",
+      "id": "polygons_polygons_rationale_18",
+      "community_name": "Community 0"
+    },
+    {
+      "label": "# TODO: perhaps I should use the class Polygon instead!",
+      "file_type": "rationale",
+      "source_file": "polygons/polygons.py",
+      "source_location": "L33",
+      "_origin": "ast",
+      "community": 0,
+      "norm_label": "# todo: perhaps i should use the class polygon instead!",
+      "id": "polygons_polygons_rationale_33",
+      "community_name": "Community 0"
+    },
+    {
+      "label": "# TODO: make this work for any type of polygon",
+      "file_type": "rationale",
+      "source_file": "polygons/polygons.py",
+      "source_location": "L50",
+      "_origin": "ast",
+      "community": 0,
+      "norm_label": "# todo: make this work for any type of polygon",
+      "id": "polygons_polygons_rationale_50",
+      "community_name": "Community 0"
+    }
+  ],
+  "links": [
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "mathsquiz/mathsquiz-step2.py",
+      "source_location": "L8",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "mathsquiz_mathsquiz_step2",
+      "target": "mathsquiz_mathsquiz_step2_ask_question"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "mathsquiz/mathsquiz-step2.py",
+      "source_location": "L23",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "mathsquiz_mathsquiz_step2",
+      "target": "mathsquiz_mathsquiz_step2_print_final_scores"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "mathsquiz/mathsquiz-step2.py",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "mathsquiz_mathsquiz_step2",
+      "target": "mathsquiz_mathsquiz_step2_welcome_message"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "mathsquiz/mathsquiz-step3.py",
+      "source_location": "L9",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "mathsquiz_mathsquiz_step3",
+      "target": "mathsquiz_mathsquiz_step3_ask_question"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "mathsquiz/mathsquiz-step3.py",
+      "source_location": "L27",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "mathsquiz_mathsquiz_step3",
+      "target": "mathsquiz_mathsquiz_step3_print_final_scores"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "mathsquiz/mathsquiz-step3.py",
+      "source_location": "L4",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "mathsquiz_mathsquiz_step3",
+      "target": "mathsquiz_mathsquiz_step3_welcome_message"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "polygons/polygons.py",
+      "source_location": "L13",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "polygons_polygons",
+      "target": "polygons_polygons_calc_polygon_details"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "polygons/polygons.py",
+      "source_location": "L41",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "polygons_polygons",
+      "target": "polygons_polygons_draw_polygon"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "polygons/polygons.py",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "polygons_polygons",
+      "target": "polygons_polygons_polygon"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "polygons/polygons.py",
+      "source_location": "L18",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "polygons_polygons_rationale_18",
+      "target": "polygons_polygons"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "polygons/polygons.py",
+      "source_location": "L33",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "polygons_polygons_rationale_33",
+      "target": "polygons_polygons"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "polygons/polygons.py",
+      "source_location": "L50",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "polygons_polygons_rationale_50",
+      "target": "polygons_polygons"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "polygons/polygons.py",
+      "source_location": "L29",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "polygons_polygons_calc_polygon_details",
+      "target": "polygons_polygons_polygon"
+    },
+    {
+      "relation": "inherits",
+      "confidence": "EXTRACTED",
+      "source_file": "polygons/polygons.py",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "polygons_polygons_polygon",
+      "target": "object"
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "polygons/polygons.py",
+      "source_location": "L5",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "polygons_polygons_polygon",
+      "target": "polygons_polygons_polygon_init"
+    }
+  ],
+  "hyperedges": []
+}
