@@ -8,11 +8,12 @@ submission; everything here is an additional target.
 | Run | Target | Model | Headline |
 |---|---|---|---|
 | [`broken-python/`](broken-python/) | [`martinpeck/broken-python`](https://github.com/martinpeck/broken-python) | `claude-opus-4-8` | God Node + SPOF = `Polygon`; 73.7% token saving |
+| [`bugsinpy/`](bugsinpy/) | [`soarsmu/BugsInPy`](https://github.com/soarsmu/BugsInPy) | `claude-opus-4-8` | 1633-node bash framework but **flat** (no hubs/cycles); token thesis inverts (−3133%) |
 
 Each run folder contains:
 
 - `artifacts/` — Graphify outputs (`graph.json`, `GRAPH_REPORT.md`, `graph.html`)
-- `obsidian/` — the generated knowledge vault (`index.md`, `hot.md`, `nodes/`)
+- `obsidian/` — the generated knowledge vault (`index.md`, `hot.md`, and `nodes/` for graphs small enough to be useful)
 - `reports/` — `architecture.md`, `recommendations.md` / `.json`, `token_efficiency.md`
 - `setup.snapshot.json` — the exact config used for the run
 - `FINDINGS.md` — a human summary of what the run revealed
