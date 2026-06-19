@@ -9,7 +9,9 @@ Emits, from a :class:`GraphModel`, a self-contained architecture document:
 - an **OOP class map** (Mermaid classDiagram) — classes with inheritance and usage,
   or a note when the codebase has no classes.
 
-Everything is deterministic (sorted) and a pure function of the graph.
+The Mermaid drawing detail lives in :mod:`arch_agent.services.mermaid`; this module
+orchestrates the overview and assembles the final document. Everything is
+deterministic (sorted) and a pure function of the graph.
 """
 
 from __future__ import annotations
@@ -18,24 +20,9 @@ from collections import Counter
 
 from arch_agent.services.cycles import find_cycles
 from arch_agent.services.impact import ImpactAnalyzer
+from arch_agent.services.mermaid import block_diagram, class_map
 from arch_agent.services.metrics import MetricsCalculator
-from arch_agent.services.models import EdgeKind, GraphModel, Node, NodeType
-
-
-def _mid(node_id: str) -> str:
-    """Map a node id to a Mermaid-safe identifier."""
-    return "".join(c if c.isalnum() else "_" for c in node_id)
-
-
-def _parent_module(node_id: str, module_ids: set[str]) -> str | None:
-    """Return the longest module id that is a ``<module>_`` prefix of ``node_id``."""
-    candidates = [m for m in module_ids if node_id.startswith(f"{m}_")]
-    return max(candidates, key=len) if candidates else None
-
-
-def _short_label(node_id: str, parent: str | None) -> str:
-    """Strip the parent-module prefix for a compact label (``a_b_foo`` -> ``foo``)."""
-    return node_id[len(parent) + 1 :] if parent else node_id
+from arch_agent.services.models import GraphModel, NodeType
 
 
 class ReverseEngineer:
@@ -92,66 +79,12 @@ class ReverseEngineer:
         return "\n".join([*table, "", *facts])
 
     def block_diagram(self, graph: GraphModel) -> str:
-        """Mermaid flowchart: functions grouped inside their module, with every edge.
-
-        Modules become ``subgraph`` containers holding the functions whose ids are
-        prefixed by the module id; modules and functions with no parent are top-level
-        nodes. Classes are omitted here — they belong to the OOP class map. Every
-        edge between two shown nodes is drawn.
-        """
-        modules = {n.id for n in graph.nodes if n.type is NodeType.MODULE}
-        shown = {n.id for n in graph.nodes if n.type in (NodeType.MODULE, NodeType.FUNCTION)}
-        functions = [n for n in graph.nodes if n.type is NodeType.FUNCTION]
-
-        # Group each function under its parent module (if any).
-        children: dict[str, list[Node]] = {m: [] for m in modules}
-        top_level: list[Node] = []
-        for fn in functions:
-            parent = _parent_module(fn.id, modules)
-            (children[parent].append(fn) if parent is not None else top_level.append(fn))
-
-        lines: list[str] = ["```mermaid", "flowchart LR"]
-        for module_id in sorted(modules):
-            kids = children[module_id]
-            if kids:
-                lines.append(f'  subgraph {_mid(module_id)}["{module_id}"]')
-                for fn in sorted(kids, key=lambda n: n.id):
-                    lines.append(f'    {_mid(fn.id)}["{_short_label(fn.id, module_id)}"]')
-                lines.append("  end")
-            else:
-                lines.append(f'  {_mid(module_id)}["{module_id}"]')
-        for fn in sorted(top_level, key=lambda n: n.id):
-            lines.append(f'  {_mid(fn.id)}["{fn.id}"]')
-
-        edges = sorted(
-            f"  {_mid(e.src)} --> {_mid(e.dst)}"
-            for e in graph.edges
-            if e.src in shown and e.dst in shown
-        )
-        lines.extend(edges)
-        lines.append("```")
-        return "\n".join(lines)
+        """Mermaid flowchart of functions grouped inside their module (see :mod:`mermaid`)."""
+        return block_diagram(graph)
 
     def class_map(self, graph: GraphModel) -> str:
-        """Mermaid class diagram: classes with inheritance (``<|--``) and usage (``-->``).
-
-        Returns a Markdown note (not a Mermaid block) when the graph has no classes —
-        an empty ``classDiagram`` is a Mermaid parse error, so a module/function-only
-        codebase must not emit one.
-        """
-        classes = {n.id for n in graph.nodes if n.type is NodeType.CLASS}
-        if not classes:
-            return "_No classes found — this codebase is module/function-only._"
-        nodes = [f"  class {_mid(nid)}" for nid in sorted(classes)]
-        relations: list[str] = []
-        for edge in graph.edges:
-            if edge.src not in classes:
-                continue
-            if edge.kind is EdgeKind.INHERIT:
-                relations.append(f"  {_mid(edge.dst)} <|-- {_mid(edge.src)}")
-            else:
-                relations.append(f"  {_mid(edge.src)} --> {_mid(edge.dst)}")
-        return "\n".join(["```mermaid", "classDiagram", *nodes, *sorted(relations), "```"])
+        """Mermaid class diagram with inheritance and usage (see :mod:`mermaid`)."""
+        return class_map(graph)
 
     def render(self, graph: GraphModel) -> str:
         """Combine overview + both diagrams into a single Markdown document."""

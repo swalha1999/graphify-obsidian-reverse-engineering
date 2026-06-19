@@ -5,8 +5,9 @@ from __future__ import annotations
 from pathlib import Path
 
 from arch_agent.services.graph_loader import GraphLoader
+from arch_agent.services.mermaid import mermaid_id
 from arch_agent.services.models import Edge, EdgeKind, GraphModel, Node, NodeType
-from arch_agent.services.reverse_engineer import ReverseEngineer, _mid
+from arch_agent.services.reverse_engineer import ReverseEngineer
 
 FIXTURE = Path(__file__).parent / "fixtures" / "graph.json"
 
@@ -16,8 +17,8 @@ def _fixture() -> GraphModel:
 
 
 def test_mid_sanitizes() -> None:
-    assert _mid("mod.core") == "mod_core"
-    assert _mid("class.Service") == "class_Service"
+    assert mermaid_id("mod.core") == "mod_core"
+    assert mermaid_id("class.Service") == "class_Service"
 
 
 def test_block_diagram_includes_functions_excludes_classes() -> None:
