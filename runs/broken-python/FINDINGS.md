@@ -40,3 +40,9 @@ The Architect agent (Opus) returned an **evidence-gated** refactor plan — chea
 | Time to root cause (s) | 18.3 | 7.4 |
 
 **Token saving: 73.7%** (≥40% target met). Both runs reached the root cause with tests green; the graph-guided run read 2 curated artifacts instead of all 5 source files. Full table in [`reports/token_efficiency.md`](reports/token_efficiency.md).
+
+## Before / after + Obsidian screenshots
+
+A before-vs-after write-up (architecture, knowledge level, structural risk) with the
+generated vault's graph view, local graph, `hot.md`, and backlinks is in
+[`reports/before_after.md`](reports/before_after.md).
