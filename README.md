@@ -14,6 +14,12 @@ code to an LLM.
 Full spec: [`docs/PRD.md`](docs/PRD.md) · [`docs/PLAN.md`](docs/PLAN.md) ·
 [`docs/TODO.md`](docs/TODO.md) · research questions [`docs/PRD_research_questions.md`](docs/PRD_research_questions.md).
 
+> **Targets.** The primary run is **`andela/buggy-python`** — its deliverables live at the
+> repo root (`reports/`, `obsidian/`, `artifacts/`), which is where the pipeline writes by
+> default. Two **additional** targets, `martinpeck/broken-python` and `soarsmu/BugsInPy`,
+> live under [`runs/`](runs/). Note the easy-to-miss name clash: **`buggy-python`** (andela,
+> the root run) is a *different* repo from **`BugsInPy`** (soarsmu, under `runs/`).
+
 ---
 
 ## How it works

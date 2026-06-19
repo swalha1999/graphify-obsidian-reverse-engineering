@@ -2,8 +2,12 @@
 
 Each subfolder is a self-contained ArchAgent run against one target repository,
 so findings for different repos never overwrite each other. The repo root
-(`artifacts/`, `obsidian/`, `reports/`) holds the original **buggy-python**
-submission; everything here is an additional target.
+(`artifacts/`, `obsidian/`, `reports/`) holds the original **`andela/buggy-python`**
+submission (the pipeline's default output location); everything here is an additional target.
+
+> **Name clash — don't confuse these two.** **`andela/buggy-python`** (the small teaching
+> repo at the repo root) is **not** the same as **`soarsmu/BugsInPy`** (the large
+> bug-benchmark framework in [`bugsinpy/`](bugsinpy/)). Different owners, different repos.
 
 | Run | Target | Model | Headline |
 |---|---|---|---|
