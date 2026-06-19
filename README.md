@@ -170,4 +170,4 @@ The same gates run in CI on every push/PR ([`.github/workflows/ci.yml`](.github/
 
 ## License
 
-See repository for license terms.
+Released under the [MIT License](LICENSE).
