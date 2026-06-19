@@ -1,0 +1,37 @@
+{
+  "version": "1.00",
+  "_comment": "Central config (ADR-005, NFR-2). Thresholds mirror PRD_graph_analysis §2.2 and PRD_agent_workflow §6. Edit target_repo/model to taste; pricing defaults to 0 so token-only comparison still works until real rates are filled in.",
+  "target_repo": {
+    "url": "https://github.com/soarsmu/BugsInPy",
+    "ref": "master",
+    "local_path": "data/target",
+    "_note": "BugsInPy is a bash benchmark framework (810 .sh scripts, 1 .py); graphify graphs the shell framework."
+  },
+  "model": {
+    "name": "claude-opus-4-8",
+    "temperature": 0.0,
+    "pricing_usd_per_mtok": { "input": 0.0, "output": 0.0 }
+  },
+  "graph_analysis": {
+    "_comment": "Tuned for the small buggy-python target (11 nodes); PRD_graph_analysis defaults (0.50/20/15) are calibrated for large repos.",
+    "god_node_centrality": 0.30,
+    "god_node_fan_in": 4,
+    "spof_fan_in": 3,
+    "oversized_loc": 300,
+    "proximity_max_hops": 4,
+    "severity_bands": { "medium": 1.5, "high": 2.0 }
+  },
+  "agent_workflow": {
+    "max_iterations": 3,
+    "min_metric_improvement": 0.05,
+    "token_budget": 200000
+  },
+  "token_efficiency": {
+    "task": "find_root_cause_and_fix_target_bug"
+  },
+  "paths": {
+    "artifacts": "runs/bugsinpy/artifacts",
+    "obsidian": "runs/bugsinpy/obsidian",
+    "reports": "runs/bugsinpy/reports"
+  }
+}
